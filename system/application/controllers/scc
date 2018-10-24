@@ -1,0 +1,71 @@
+update industry.sprav set value=value::integer +1 where name='current_period';
+
+insert into industry.saldo(firm_id,value,period_id)select 
+firm_id
+,
+coalesce (debet_value,0)
+-
+coalesce (kredit_value,0)+
+(
+coalesce (nachisleno,0)-coalesce (oplata_value,0)
+) as saldo_value
+,
+sprav.value::integer as period_id
+ from industry."7-re" 
+right join industry.sprav on 
+sprav.value::integer-1="7-re".period_id
+where  sprav.name='current_period';
+
+insert into industry.nadbavka_otnositelnaya
+ (value,billing_point_id,period_id)
+
+select nadbavka_otnositelnaya.value,
+nadbavka_otnositelnaya.billing_point_id,
+sprav.value
+from industry.nadbavka_otnositelnaya
+
+left join industry.sprav on sprav.name='current_period'
+where 
+nadbavka_otnositelnaya.period_id=sprav.value::integer-1;
+
+
+insert into industry.sovm_by_counter_value
+(parent_firm_id,billing_point_id,
+period_id)
+select 
+sovm_by_counter_value.parent_firm_id,
+sovm_by_counter_value.billing_point_id,
+sprav.value::integer
+from industry.sovm_by_counter_value
+left join industry.sprav on sprav.name='current_period'
+where 
+
+sovm_by_counter_value.period_id=sprav.value::integer-1;
+
+--insert into industry.schetfactura_date (firm_id,period_id,date)
+select firm.id,sprav.value,t2.end_date from industry.firm
+left join industry.sprav on sprav.name='current_period'
+--left join industry.period  on period.id=period.id
+left join industry.period t2 on t2.id=sprav.value;
+
+--insert into industry.schetfactura_date (firm_id,period_id,date)
+--select firm.id,sprav.value,t2.end_date from industry.firm
+--left join industry.sprav on sprav.name='current_period';
+
+
+insert into industry.nadbavka_absolutnaya
+(value,values_set_id,data,tariff_value)
+select 
+	nadbavka_absolutnaya.value,
+	nadbavka_absolutnaya.values_set_id,
+	period.end_date+2,
+	-1
+from 
+	industry.nadbavka_absolutnaya  
+  right join industry.period on nadbavka_absolutnaya.data 
+		between period.begin_date and period.end_date
+  left join industry.values_set on values_set.id=nadbavka_absolutnaya.values_set_id
+  left join industry.counter on counter.id=values_set.counter_id
+  left join industry.sprav on sprav.name='current_period'
+where nadbavka_absolutnaya.id is not null and counter.data_finish is null
+and period.id = sprav.value::integer -1;
