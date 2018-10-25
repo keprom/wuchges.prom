@@ -2823,6 +2823,17 @@ class Billing extends Controller
         redirect("billing");
     }
 
+    private function export_to_excel($view_name, $data, $title = "Example")
+    {
+        $title .= '_' . date("Ymd");
+        $title .= '.xls';
+        header("Content-type: application/vnd.ms-excel");
+        header("Content-Disposition: attachment; filename={$title}");
+        header("Expires: 0");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        $this->load->view($view_name, $data);
+    }
+
     /*ADD PERIODS*/
     function add_periods()
     {
