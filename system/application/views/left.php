@@ -22,16 +22,13 @@
         <div id="header_right"></div>
     </div>
 
-
     <div id="nav">
-
         <div class="nav_left"></div>
         <div class="nav_right"></div>
-
     </div>
+
     <div id="nav_m">
         <ul>
-
             <li><?php echo anchor("billing", "выбор фирмы"); ?></li>
             <li><?php echo anchor("billing/firm_not_closed", "Неотчитавшиеся фирмы"); ?></li>
             <li><?php echo anchor("billing/my_firm", "мои фирмы"); ?></li>
@@ -40,7 +37,6 @@
         </ul>
     </div>
     <?php
-
     function is_s($var, $poisk)
     {
         $string = '';
@@ -48,7 +44,6 @@
         $string .= " value=" . $var . " ";
         return $string;
     }
-
     ?>
 
     <div id="content_conteiner">
@@ -60,15 +55,15 @@
                     <input name="str" style="width : 100%">
                     <select name=type style="width : 100%">
                         <option <?php echo is_s('1', $poisk); ?> >По номеру договора</option>
-                        <option <?php echo is_s('2', $poisk); ?>>По адресу т.у.</option>
-                        <option <?php echo is_s('3', $poisk); ?>>По адресу фирмы</option>
-                        <option <?php echo is_s('4', $poisk); ?>>По РНН</option>
-                        <option <?php echo is_s('5', $poisk); ?>>По ТП</option>
-                        <option <?php echo is_s('6', $poisk); ?>>По телефону</option>
-                        <option <?php echo is_s('7', $poisk); ?>>По названию фирмы</option>
-                        <option <?php echo is_s('8', $poisk); ?>>По номеру счетчика</option>
-                        <option <?php echo is_s('9', $poisk); ?>>По номеру счетфактуры</option>
-                        <option <?php echo is_s('10', $poisk); ?>>По БИН</option>
+                        <option <?php echo is_s('2', $poisk); ?> >По адресу т.у.</option>
+                        <option <?php echo is_s('3', $poisk); ?> >По адресу фирмы</option>
+                        <option <?php echo is_s('4', $poisk); ?> >По РНН</option>
+                        <option <?php echo is_s('5', $poisk); ?> >По ТП</option>
+                        <option <?php echo is_s('6', $poisk); ?> >По телефону</option>
+                        <option <?php echo is_s('7', $poisk); ?> >По названию фирмы</option>
+                        <option <?php echo is_s('8', $poisk); ?> >По номеру счетчика</option>
+                        <option <?php echo is_s('9', $poisk); ?> >По номеру счетфактуры</option>
+                        <option <?php echo is_s('10', $poisk); ?> >По БИН</option>
                     </select><br>
                     <input type="submit" value='найти' style="width : 100%">
                     </form>

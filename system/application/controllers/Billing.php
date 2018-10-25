@@ -72,9 +72,9 @@ class Billing extends Controller
 
     function index()
     {
-        $this->left();
         $this->db->order_by('dogovor');
         $data['query'] = $this->db->get("industry.firm_overview");
+        $this->left();
         $this->load->view("billing_view", $data);
         $this->load->view("right");
     }
