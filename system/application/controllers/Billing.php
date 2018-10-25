@@ -117,8 +117,9 @@ class Billing extends Controller
         $this->db->where('id', $this->uri->segment(3));
         $data['r'] = $this->db->get('industry.firm_view')->row();
 
-        $sql = "SELECT period.*,case when sprav.value is not null then 'selected' else '' end  as checked FROM industry.period left join industry.sprav on period.id=sprav.value::integer and sprav.name='current_period' order by id";
-        $data['period'] = $this->db->query($sql);
+        //$sql = "SELECT period.*,case when sprav.value is not null then 'selected' else '' end  as checked FROM industry.period left join industry.sprav on period.id=sprav.value::integer and sprav.name='current_period' order by id";
+        //$data['period'] = $this->db->query($sql);
+        $data['period'] = $this->db->get("industry.selected_period");
         $sql = "Select industry.is_closed(" . $this->uri->segment(3) . ") as closed";
         $data['is_closed'] = $this->db->query($sql)->row();
         $this->left();
@@ -142,8 +143,7 @@ class Billing extends Controller
         $this->db->where('id', $this->uri->segment(3));
         $data['r'] = $this->db->get('industry.firm');
 
-        $sql = "SELECT period.*,case when sprav.value is not null then 'selected' else '' end  as checked FROM industry.period left join industry.sprav on period.id=sprav.value::integer and sprav.name='current_period' order by id";
-        $data['period'] = $this->db->query($sql);
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->db->order_by('name');
         $data['firm_subgroup'] = $this->db->get('industry.firm_subgroup');
         $this->db->order_by('name');
@@ -1048,8 +1048,7 @@ class Billing extends Controller
     {
         $this->db->where('id', $this->uri->segment(3));
         $data['r'] = $this->db->get('industry.firm');
-        $sql = "SELECT period.*,case when sprav.value is not null then 'selected' else '' end  as checked FROM industry.period left join industry.sprav on period.id=sprav.value::integer and sprav.name='current_period' order by id";
-        $data['period'] = $this->db->query($sql);
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view("pre_schetfactura", $data);
         $this->load->view("right");
@@ -1085,7 +1084,7 @@ class Billing extends Controller
 
     function pre_analiz_mnogourovneviy_spisok()
     {
-        $data['period'] = $this->db->get("industry.period");
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view('pre_analiz_mnogourovneviy_spisok', $data);
         $this->load->view('right');
@@ -1103,7 +1102,7 @@ class Billing extends Controller
 
     function pre_analiz_mnogourovneviy()
     {
-        $data['period'] = $this->db->get("industry.period");
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view('pre_analiz_mnogourovneviy', $data);
         $this->load->view('right');
@@ -1323,7 +1322,7 @@ class Billing extends Controller
 
     function pre_analiz_obwii()
     {
-        $data['period'] = $this->db->get("industry.period");
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view('pre_analiz_obwii', $data);
         $this->load->view('right');
@@ -1347,7 +1346,7 @@ class Billing extends Controller
 
     function pre_analiz_ost()
     {
-        $data['period'] = $this->db->get("industry.period");
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view('pre_analiz_ost', $data);
         $this->load->view('right');
@@ -1365,7 +1364,7 @@ class Billing extends Controller
 
     function pre_analiz_obwii_spisok()
     {
-        $data['period'] = $this->db->get("industry.period");
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view('pre_analiz_obwii_spisok', $data);
         $this->load->view('right');
@@ -1558,8 +1557,7 @@ class Billing extends Controller
 
     function vih_7_re_form()
     {
-        $sql = "SELECT * from industry.period order by id";
-        $data['periods'] = $this->db->query($sql);
+        $data['periods'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view("reports/form/vih_7_re_form", $data);
         $this->load->view("right");
@@ -1601,8 +1599,7 @@ class Billing extends Controller
 
     function vih_2_re_form()
     {
-        $sql = "SELECT * from industry.period order by id";
-        $data['periods'] = $this->db->query($sql);
+        $data['periods'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view("reports/form/vih_2_re_form", $data);
         $this->load->view("right");
@@ -2077,8 +2074,7 @@ class Billing extends Controller
 
     function pre_oplata_svod()
     {
-        $this->db->order_by("id");
-        $data['period'] = $this->db->get("industry.period");
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view("pre_oplata_svod", $data);
         $this->load->view("right");
@@ -2086,8 +2082,7 @@ class Billing extends Controller
 
     function pre_oplata_po_schetam()
     {
-        $this->db->order_by("id");
-        $data['period'] = $this->db->get("industry.period");
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view("pre_oplata_po_schetam", $data);
         $this->load->view("right");
@@ -2246,7 +2241,7 @@ class Billing extends Controller
     function pre_svod_po_tp()
     {
         $data['ture'] = $this->db->get("industry.ture");
-        $data['period'] = $this->db->get("industry.period");
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view('pre_svod_po_tp', $data);
         $this->load->view('right');
@@ -2280,7 +2275,7 @@ class Billing extends Controller
 
     function pre_svod_saldo_po_ture()
     {
-        $data['period'] = $this->db->get("industry.period");
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view('pre_svod_saldo_po_ture', $data);
         $this->load->view('right');
@@ -2312,7 +2307,7 @@ class Billing extends Controller
 
     function pre_energo_24()
     {
-        $data['period'] = $this->db->get("industry.period");
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view('pre_energo_24', $data);
         $this->load->view('right');
@@ -2328,7 +2323,7 @@ class Billing extends Controller
 
     function pre_schetfactura_jurnal()
     {
-        $data['period'] = $this->db->get("industry.period");
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view('pre_schetfactura_jurnal', $data);
         $this->load->view('right');
@@ -2381,7 +2376,7 @@ class Billing extends Controller
     function pre_oborotka_with_predoplata()
     {
         $data['ture'] = $this->db->get("industry.ture");
-        $data['period'] = $this->db->get("industry.period");
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view('pre_oborotka_with_predoplata', $data);
         $this->load->view('right');
@@ -2400,7 +2395,7 @@ class Billing extends Controller
 
     function pre_svod_oplat_po_firmam()
     {
-        $data['period'] = $this->db->get("industry.period");
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view('pre_svod_oplat_po_firmam', $data);
         $this->load->view('right');
@@ -2418,7 +2413,7 @@ class Billing extends Controller
 
     function pre_poleznyy_otpusk()
     {
-        $data['period'] = $this->db->get("industry.period");
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view('pre_poleznyy_otpusk', $data);
         $this->load->view('right');
@@ -2502,7 +2497,7 @@ class Billing extends Controller
 
     function pre_diff_tariff_controll()
     {
-        $data['period'] = $this->db->get("industry.period");
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view('pre_diff_tariff_controll', $data);
         $this->load->view('right');
@@ -2520,7 +2515,7 @@ class Billing extends Controller
 
     function pre_diff_tariff_spisok()
     {
-        $data['period'] = $this->db->get("industry.period");
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view('pre_diff_tariff_spisok', $data);
         $this->load->view('right');
@@ -2538,7 +2533,7 @@ class Billing extends Controller
 
     function pre_diff_tariff_controll_3()
     {
-        $data['period'] = $this->db->get("industry.period");
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view('pre_diff_tariff_controll_3', $data);
         $this->load->view('right');
@@ -2556,7 +2551,7 @@ class Billing extends Controller
 
     function pre_diff_tariff_spisok_3()
     {
-        $data['period'] = $this->db->get("industry.period");
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view('pre_diff_tariff_spisok_3', $data);
         $this->load->view('right');
@@ -2600,7 +2595,7 @@ class Billing extends Controller
 
     function pre_svod()
     {
-        $data['period'] = $this->db->get('industry.period');
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view("pre_svod", $data);
         $this->load->view("right");
@@ -2656,7 +2651,7 @@ class Billing extends Controller
 
     function pre_poleznyy_otpusk2()
     {
-        $data['period'] = $this->db->get("industry.period");
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view('pre_poleznyy_otpusk2', $data);
         $this->load->view('right');
@@ -2674,7 +2669,7 @@ class Billing extends Controller
 
     function pre_analiz_diff_tarif()
     {
-        $data['period'] = $this->db->get("industry.period");
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view('pre_analiz_diff_tarif', $data);
         $this->load->view('right');
@@ -2692,7 +2687,7 @@ class Billing extends Controller
 
     function pre_analiz_diff_tarif_spisok()
     {
-        $data['period'] = $this->db->get("industry.period");
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view('pre_analiz_diff_tarif_spisok', $data);
         $this->load->view('right');
@@ -2710,8 +2705,7 @@ class Billing extends Controller
 
     function pre_nachislenie_v_analiz()
     {
-        $this->db->order_by("id");
-        $data['period'] = $this->db->get("industry.period");
+        $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view("pre_nachislenie_v_analiz", $data);
         $this->load->view("right");

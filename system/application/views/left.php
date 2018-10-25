@@ -52,14 +52,13 @@
     ?>
 
     <div id="content_conteiner">
-
         <div id="left_column">
             <div class="menu_item">
                 <div class="menu_item_header"><h2>поиск</h2></div>
                 <div class="menu_item_content">
                     <?php echo form_open("billing/firm_search_by"); ?>
-                    <input name="str" style="width : 100px"/>
-                    <select name=type>
+                    <input name="str" style="width : 100%">
+                    <select name=type style="width : 100%">
                         <option <?php echo is_s('1', $poisk); ?> >По номеру договора</option>
                         <option <?php echo is_s('2', $poisk); ?>>По адресу т.у.</option>
                         <option <?php echo is_s('3', $poisk); ?>>По адресу фирмы</option>
@@ -71,7 +70,7 @@
                         <option <?php echo is_s('9', $poisk); ?>>По номеру счетфактуры</option>
                         <option <?php echo is_s('10', $poisk); ?>>По БИН</option>
                     </select><br>
-                    <input type="submit" value='найти'/>
+                    <input type="submit" value='найти' style="width : 100%">
                     </form>
                 </div>
 
@@ -101,7 +100,6 @@
                         Должность:<br>
                         <div align=right><?php echo $this->session->userdata('profa'); ?> </div>
                         <br><br>
-
                     </h3>
                 </div>
             </div>
