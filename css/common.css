@@ -48,14 +48,14 @@ a:hover {
 #bottom_shadow {
     width: 100%;
     height: 3px;
-    background-image: url(../images/frm_bot2.gif);
+    background-image: url(../img/frm_bot2.gif);
     background-repeat: repeat-x;
     margin-top: 30px;
 }
 
 #container {
     background-color: #FFFFFF;
-    background-image: url(../images/container_bg.gif);
+    background-image: url(../img/container_bg.gif);
     background-repeat: repeat-y;
     height: auto;
     width: 100%;
@@ -63,7 +63,7 @@ a:hover {
 }
 
 #header {
-    background-image: url(../images/bg-right.gif);
+    background-image: url(../img/bg-right.gif);
     margin-left: 3px;
     height: 70px;
     width: 100%;
@@ -82,7 +82,7 @@ a:hover {
 }
 
 #header #header_right {
-    background-image: url(../images/kok2.jpg);
+    background-image: url(../img/kok2.jpg);
     background-position: bottom;
     height: 70px;
     width: 700px;
@@ -112,19 +112,19 @@ a:hover {
 }
 
 ul {
-    list-style-image: url(../images/li.gif);
+    list-style-image: url(../img/li.gif);
 }
 
 #nav {
     height: 40px;
     margin-left: 2px;
     width: 100%;
-    background-image: url(../images/nav_right.gif);
+    background-image: url(../img/nav_right.gif);
 }
 
 .nav_left {
     float: left;
-    background-image: url(../images/nav_left.gif);
+    background-image: url(../img/nav_left.gif);
     width: 244px;
     height: 40px;
     z-index: 1;
@@ -195,7 +195,7 @@ ul {
 }
 
 .menu_item_header {
-    background-image: url(../images/left_bar.gif);
+    background-image: url(../img/left_bar.gif);
     height: 31px;
     text-align: center;
     margin-left: 2px;
@@ -231,7 +231,7 @@ ul {
 
 #footer {
     height: 40px;
-    background-image: url(../images/menu.gif);
+    background-image: url(../img/menu.gif);
     margin-left: 2px;
     width: 100%;
 }
