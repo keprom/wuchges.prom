@@ -36,7 +36,7 @@
                 show: true,         // wether to show the tick (mark and label),
                 showLabel: true,    // wether to show the text label at the tick,
                 formatString: '',   // format string to use with the axis tick formatter
-            }
+            },
             showTicks: true,        // wether or not to show the tick labels,
             showTickMarks: true,    // wether or not to show the tick marks
         },
@@ -85,7 +85,7 @@
                                         // filledDiamond or filledSquare.
                 lineWidth: 2,       // width of the stroke drawing the marker.
                 size: 9,            // size (diameter, edge length, etc.) of the marker.
-                color: '#666666'    // color of marker, set to color of line by default.
+                color: '#666666',    // color of marker, set to color of line by default.
                 shadow: true,       // wether to draw shadow on marker or not.
                 shadowAngle: 45,    // angle of the shadow.  Clockwise from x axis.
                 shadowOffset: 1,    // offset from the line of the shadow,
@@ -109,7 +109,7 @@
 
         grid: {
             drawGridLines: true,        // wether to draw lines across the grid or not.
-            gridLineColor: '#cccccc'    // **Color of the grid lines.
+            gridLineColor: '#cccccc',    // **Color of the grid lines.
             background: '#000000',      // CSS color spec for background color of grid.
             borderColor: '#999999',     // CSS color spec for border around grid.
             borderWidth: 2.0,           // pixel width of border around grid.
@@ -119,7 +119,7 @@
             shadowWidth: 3,             // width of the stroke for the shadow.
             shadowDepth: 3,             // Number of strokes to make when drawing shadow.
                                         // Each stroke offset by shadowOffset from the last.
-            shadowAlpha: 0.07           // Opacity of the shadow
+            shadowAlpha: 0.07 ,          // Opacity of the shadow
             renderer: $.jqplot.CanvasGridRenderer,  // renderer to use to draw the grid.
             rendererOptions: {}         // options to pass to the renderer.  Note, the default
                                         // CanvasGridRenderer takes no additional options.
@@ -194,11 +194,11 @@
             showTooltip: true,      // show a tooltip with data point values.
             tooltipLocation: 'nw',  // location of tooltip: n, ne, e, se, s, sw, w, nw.
             fadeTooltip: true,      // use fade effect to show/hide tooltip.
-            tooltipFadeSpeed: "fast"// slow, def, fast, or a number of milliseconds.
+            tooltipFadeSpeed: "fast",// slow, def, fast, or a number of milliseconds.
             tooltipOffset: 2,       // pixel offset of tooltip from the highlight.
             tooltipAxes: 'both',    // which axis values to display in the tooltip, x, y or both.
-            tooltipSeparator: ', '  // separator between values in the tooltip.
-            useAxesFormatters: true // use the same format string and formatters as used in the axes to
+            tooltipSeparator: ', ' , // separator between values in the tooltip.
+            useAxesFormatters: true, // use the same format string and formatters as used in the axes to
                                     // display values in the tooltip.
             tooltipFormatString: '%.5P' // sprintf format string for the tooltip.  only used if
                                         // useAxesFormatters is false.  Will use sprintf formatter with

@@ -59,6 +59,7 @@ class Billing extends Controller
 
     function left()
     {
+        $data['month_to_look'] = $this->db->query("select * from industry.current_period()")->row()->current_period;
         $data['poisk'] = $this->session->userdata('poisk');
         if ($this->session->userdata('poisk') == NULL) $data['poisk'] = '1';
         $this->load->view("left", $data);
