@@ -12,28 +12,28 @@
 <table class="border-table">
     <caption>Снятые счетчики за <?php echo $year; ?> год</caption>
     <thead>
-<tr>
-    <th>№</th>
-    <th>№ абонента</th>
-    <th>Наименование организации</th>
-    <th>№ счетчика</th>
-    <th>Тип счетчика</th>
-    <th>Дата замены</th>
-    <th>Причина замены</th>
-</tr>
+    <tr>
+        <th>№</th>
+        <th>№ абонента</th>
+        <th>Наименование организации</th>
+        <th>№ счетчика</th>
+        <th>Тип счетчика</th>
+        <th>Дата замены</th>
+        <th>Причина замены</th>
+    </tr>
     </thead>
     <tbody>
     <?php $i = 1; ?>
     <?php foreach ($report as $r): ?>
-    <tr>
-        <td><?php echo $i++; ?></td>
-        <td><?php echo $r->dogovor; ?></td>
-        <td><?php echo $r->firm_name; ?></td>
-        <td><?php echo $r->gos_nomer; ?></td>
-        <td><?php echo $r->type_name; ?></td>
-        <td><?php echo $r->data_finish; ?></td>
-        <td></td>
-    </tr>
+        <tr>
+            <td><?php echo $i++; ?></td>
+            <td><?php echo $r->dogovor; ?></td>
+            <td><?php echo $r->firm_name; ?></td>
+            <td><?php echo $r->gos_nomer; ?></td>
+            <td><?php echo $r->type_name; ?></td>
+            <td><?php echo $r->data_finish; ?></td>
+            <td></td>
+        </tr>
     <?php endforeach; ?>
     </tbody>
 </table>

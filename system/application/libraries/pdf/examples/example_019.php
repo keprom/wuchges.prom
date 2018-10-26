@@ -67,7 +67,7 @@ $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 
 //set image scale factor
-$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO); 
+$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
 // set some language dependent data:
 $lg = Array();
@@ -77,7 +77,7 @@ $lg['a_meta_language'] = 'en';
 $lg['w_page'] = 'page';
 
 //set some language-dependent strings
-$pdf->setLanguageArray($lg);  
+$pdf->setLanguageArray($lg);
 
 // ---------------------------------------------------------
 
@@ -93,7 +93,7 @@ $pdf->Cell(0, 10, 'Example 019', 1, 1, 'C');
 $pdf->Ln();
 
 $pdf->SetFont('times', '', 10);
-$pdf->MultiCell(80, 0, 'Cras eros leo, porttitor porta, accumsan fermentum, ornare ac, est. Praesent dui lorem, imperdiet at, cursus sed, facilisis aliquam, nibh. Nulla accumsan nonummy diam. Donec tempus. Etiam posuere. Proin lectus. Donec purus. Duis in sem pretium urna feugiat vehicula. Ut suscipit velit eget massa. Nam nonummy, enim commodo euismod placerat, tortor elit tempus lectus, quis suscipit metus lorem blandit turpis.'."\n", 1, 'J', 0, 1, '', '', true, 0);
+$pdf->MultiCell(80, 0, 'Cras eros leo, porttitor porta, accumsan fermentum, ornare ac, est. Praesent dui lorem, imperdiet at, cursus sed, facilisis aliquam, nibh. Nulla accumsan nonummy diam. Donec tempus. Etiam posuere. Proin lectus. Donec purus. Duis in sem pretium urna feugiat vehicula. Ut suscipit velit eget massa. Nam nonummy, enim commodo euismod placerat, tortor elit tempus lectus, quis suscipit metus lorem blandit turpis.' . "\n", 1, 'J', 0, 1, '', '', true, 0);
 
 // ---------------------------------------------------------
 

@@ -34,7 +34,7 @@ require_once('../config/lang/eng.php');
 require_once('../tcpdf.php');
 
 // create new PDF document
-$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false); 
+$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
@@ -62,10 +62,10 @@ $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 
 //set image scale factor
-$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO); 
+$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
 //set some language-dependent strings
-$pdf->setLanguageArray($l); 
+$pdf->setLanguageArray($l);
 
 // ---------------------------------------------------------
 
@@ -79,7 +79,7 @@ $pdf->AddPage();
 $pdf->Cell(0, 12, 'Example 036', 1, 1, 'C');
 
 // text annotation
-$pdf->Annotation(124, 30, 10, 10, "Text annotation example\naccented letters test: àèéìòù", array('Subtype'=>'Text', 'Name' => 'Comment', 'T' => 'title example', 'Subj' => 'example', 'C' => array(255, 255, 0)));
+$pdf->Annotation(124, 30, 10, 10, "Text annotation example\naccented letters test: àèéìòù", array('Subtype' => 'Text', 'Name' => 'Comment', 'T' => 'title example', 'Subj' => 'example', 'C' => array(255, 255, 0)));
 
 // ---------------------------------------------------------
 

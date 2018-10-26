@@ -1,15 +1,15 @@
 /**
-* Copyright (c) 2009 Chris Leonello
-* This software is licensed under the GPL version 2.0 and MIT licenses.
-*/
-(function($) {
+ * Copyright (c) 2009 Chris Leonello
+ * This software is licensed under the GPL version 2.0 and MIT licenses.
+ */
+(function ($) {
     /**
-    *  Class: $.jqplot.CanvasAxisTickRenderer
-    *  A tick renderer supporting rotated text by drawing text onto a canvas element.
-    */
-    $.jqplot.CanvasAxisTickRenderer = function(options) {
+     *  Class: $.jqplot.CanvasAxisTickRenderer
+     *  A tick renderer supporting rotated text by drawing text onto a canvas element.
+     */
+    $.jqplot.CanvasAxisTickRenderer = function (options) {
         // Group: Properties
-        
+
         // prop: mark
         // tick mark on the axis.  One of 'inside', 'outside', 'cross', '' or null.
         this.mark = 'outside';
@@ -61,20 +61,27 @@
         // prop: textColor
         // css spec for the color attribute.
         this.textColor = '#666666';
-        
+
         this._elem;
         this._ctx;
         this._plotWidth;
         this._plotHeight;
-        this._plotDimensions = {height:null, width:null};
-        
+        this._plotDimensions = {height: null, width: null};
+
         $.extend(true, this, options);
-        
-        var ropts = {fontSize:this.fontSize, fontWeight:this.fontWeight, fontStretch:this.fontStretch, fillStyle:this.textColor, angle:this.getAngleRad(), fontFamily:this.fontFamily};
-        
+
+        var ropts = {
+            fontSize: this.fontSize,
+            fontWeight: this.fontWeight,
+            fontStretch: this.fontStretch,
+            fillStyle: this.textColor,
+            angle: this.getAngleRad(),
+            fontFamily: this.fontFamily
+        };
+
         if ($.browser.safari && $.browser.version >= 528.16) {
             this._textRenderer = new $.jqplot.CanvasFontRenderer(ropts);
-            this._textRenderer = new $.jqplot.CanvasTextRenderer(ropts); 
+            this._textRenderer = new $.jqplot.CanvasTextRenderer(ropts);
         }
         else if ($.browser.mozilla) {
             var p = $.browser.version.split(".");
@@ -85,64 +92,71 @@
                 this._textRenderer = new $.jqplot.CanvasTextRenderer(ropts);
             }
         }
-            
+
         else {
-            this._textRenderer = new $.jqplot.CanvasTextRenderer(ropts); 
+            this._textRenderer = new $.jqplot.CanvasTextRenderer(ropts);
         }
     };
-    
-    $.jqplot.CanvasAxisTickRenderer.prototype.init = function(options) {
+
+    $.jqplot.CanvasAxisTickRenderer.prototype.init = function (options) {
         $.extend(true, this, options);
-        this._textRenderer.init({fontSize:this.fontSize, fontWeight:this.fontWeight, fontStretch:this.fontStretch, fillStyle:this.textColor, angle:this.getAngleRad(), fontFamily:this.fontFamily});
+        this._textRenderer.init({
+            fontSize: this.fontSize,
+            fontWeight: this.fontWeight,
+            fontStretch: this.fontStretch,
+            fillStyle: this.textColor,
+            angle: this.getAngleRad(),
+            fontFamily: this.fontFamily
+        });
     };
-    
+
     // return width along the x axis
     // will check first to see if an element exists.
     // if not, will return the computed text box width.
-    $.jqplot.CanvasAxisTickRenderer.prototype.getWidth = function(ctx) {
+    $.jqplot.CanvasAxisTickRenderer.prototype.getWidth = function (ctx) {
         if (this._elem) {
-         return this._elem.outerWidth(true);
+            return this._elem.outerWidth(true);
         }
-     	else {
-     	    var tr = this._textRenderer;
-	        var l = tr.getWidth(ctx);
-	        var h = tr.getHeight(ctx);
-	        var w = Math.abs(Math.sin(tr.angle)*h) + Math.abs(Math.cos(tr.angle)*l);
-	        return w;
-     	}
-    };
-    
-    // return height along the y axis.
-    $.jqplot.CanvasAxisTickRenderer.prototype.getHeight = function(ctx) {
-        if (this._elem) {
-         return this._elem.outerHeight(true);
-        }
-     	else {
-     	    var tr = this._textRenderer;
-	        var l = tr.getWidth(ctx);
-	        var h = tr.getHeight(ctx);
-            var w = Math.abs(Math.cos(tr.angle)*h) + Math.abs(Math.sin(tr.angle)*l);
+        else {
+            var tr = this._textRenderer;
+            var l = tr.getWidth(ctx);
+            var h = tr.getHeight(ctx);
+            var w = Math.abs(Math.sin(tr.angle) * h) + Math.abs(Math.cos(tr.angle) * l);
             return w;
         }
     };
-    
-    $.jqplot.CanvasAxisTickRenderer.prototype.getAngleRad = function() {
-        var a = this.angle * Math.PI/180;
+
+    // return height along the y axis.
+    $.jqplot.CanvasAxisTickRenderer.prototype.getHeight = function (ctx) {
+        if (this._elem) {
+            return this._elem.outerHeight(true);
+        }
+        else {
+            var tr = this._textRenderer;
+            var l = tr.getWidth(ctx);
+            var h = tr.getHeight(ctx);
+            var w = Math.abs(Math.cos(tr.angle) * h) + Math.abs(Math.sin(tr.angle) * l);
+            return w;
+        }
+    };
+
+    $.jqplot.CanvasAxisTickRenderer.prototype.getAngleRad = function () {
+        var a = this.angle * Math.PI / 180;
         return a;
     };
-    
-    
-    $.jqplot.CanvasAxisTickRenderer.prototype.setTick = function(value, axisName, isMinor) {
+
+
+    $.jqplot.CanvasAxisTickRenderer.prototype.setTick = function (value, axisName, isMinor) {
         this.value = value;
         if (isMinor) {
-        	this.isMinorTick = true;
+            this.isMinorTick = true;
         }
         return this;
     };
-    
-    $.jqplot.CanvasAxisTickRenderer.prototype.draw = function(ctx) {
+
+    $.jqplot.CanvasAxisTickRenderer.prototype.draw = function (ctx) {
         if (!this.label) {
-        	this.label = this.formatter(this.formatString, this.value);
+            this.label = this.formatter(this.formatString, this.value);
         }
         // create a canvas here, but can't draw on it untill it is appended
         // to dom for IE compatability.
@@ -161,17 +175,17 @@
         domelem.style.width = w;
         domelem.style.height = h;
         domelem.style.textAlign = 'left';
-		this._domelem = domelem;
+        this._domelem = domelem;
         this._elem = $(domelem);
         this._elem.css(this._styles);
-        this._elem.addClass('jqplot-'+this.axis+'-tick');
-        
+        this._elem.addClass('jqplot-' + this.axis + '-tick');
+
         return this._elem;
     };
-    
-    $.jqplot.CanvasAxisTickRenderer.prototype.pack = function() {
-    	var ctx = this._elem.get(0).getContext("2d");
-    	this._textRenderer.draw(ctx, this.label);
+
+    $.jqplot.CanvasAxisTickRenderer.prototype.pack = function () {
+        var ctx = this._elem.get(0).getContext("2d");
+        this._textRenderer.draw(ctx, this.label);
     };
-    
+
 })(jQuery);

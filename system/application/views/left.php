@@ -44,6 +44,7 @@
         $string .= " value=" . $var . " ";
         return $string;
     }
+
     ?>
 
     <div id="content_conteiner">

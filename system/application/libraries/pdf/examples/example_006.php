@@ -34,7 +34,7 @@ require_once('../config/lang/eng.php');
 require_once('../tcpdf.php');
 
 // create new PDF document
-$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false); 
+$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
@@ -62,10 +62,10 @@ $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 
 //set image scale factor
-$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO); 
+$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
 //set some language-dependent strings
-$pdf->setLanguageArray($l); 
+$pdf->setLanguageArray($l);
 
 // ---------------------------------------------------------
 
@@ -115,7 +115,7 @@ $pdf->AddPage();
 // create some HTML content
 $subtable = '<table border="1" cellspacing="1" cellpadding="1"><tr><td>a</td><td>b</td></tr><tr><td>c</td><td>d</td></tr></table>';
 
-$htmltable = '<h2>HTML TABLE:</h2><table border="1" cellspacing="2" cellpadding="2"><tr><th>#</th><th align="right">RIGHT align</th><th align="left">LEFT align</th><th>4A</th></tr><tr><td>1</td><td bgcolor="#cccccc" align="center" colspan="2">A1 ex<i>amp</i>le <a href="http://www.tcpdf.org">link</a> column span. One two tree four five six seven eight nine ten.<br />line after br<br /><small>small text</small> normal <sub>subscript</sub> normal <sup>superscript</sup> normal  bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla<ol><li>first<ol><li>sublist</li><li>sublist</li></ol></li><li>second</li></ol><small color="#FF0000" bgcolor="#FFFF00">small small small small small small small small small small small small small small small small small small small small</small></td><td>4B</td></tr><tr><td>'.$subtable.'</td><td bgcolor="#0000FF" color="yellow" align="center">A2 € &euro; &#8364; &amp; è &egrave;<br/>A2 € &euro; &#8364; &amp; è &egrave;</td><td bgcolor="#FFFF00" align="left"><font color="#FF0000">Red</font> Yellow BG</td><td>4C</td></tr><tr><td>1A</td><td rowspan="2" colspan="2" bgcolor="#FFFFCC">2AA<br />2AB<br />2AC</td><td bgcolor="#FF0000">4D</td></tr><tr><td>1B</td><td>4E</td></tr><tr><td>1C</td><td>2C</td><td>3C</td><td>4F</td></tr></table>';
+$htmltable = '<h2>HTML TABLE:</h2><table border="1" cellspacing="2" cellpadding="2"><tr><th>#</th><th align="right">RIGHT align</th><th align="left">LEFT align</th><th>4A</th></tr><tr><td>1</td><td bgcolor="#cccccc" align="center" colspan="2">A1 ex<i>amp</i>le <a href="http://www.tcpdf.org">link</a> column span. One two tree four five six seven eight nine ten.<br />line after br<br /><small>small text</small> normal <sub>subscript</sub> normal <sup>superscript</sup> normal  bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla<ol><li>first<ol><li>sublist</li><li>sublist</li></ol></li><li>second</li></ol><small color="#FF0000" bgcolor="#FFFF00">small small small small small small small small small small small small small small small small small small small small</small></td><td>4B</td></tr><tr><td>' . $subtable . '</td><td bgcolor="#0000FF" color="yellow" align="center">A2 € &euro; &#8364; &amp; è &egrave;<br/>A2 € &euro; &#8364; &amp; è &egrave;</td><td bgcolor="#FFFF00" align="left"><font color="#FF0000">Red</font> Yellow BG</td><td>4C</td></tr><tr><td>1A</td><td rowspan="2" colspan="2" bgcolor="#FFFFCC">2AA<br />2AB<br />2AC</td><td bgcolor="#FF0000">4D</td></tr><tr><td>1B</td><td>4E</td></tr><tr><td>1C</td><td>2C</td><td>3C</td><td>4F</td></tr></table>';
 
 // output the HTML content
 $pdf->writeHTML($htmltable, true, 0, true, 0);
@@ -124,7 +124,7 @@ $pdf->writeHTML($htmltable, true, 0, true, 0);
 
 $cellcontent = '<span color="red">red</span> <span color="green">green</span> <span color="blue">blue</span><br /><span color="red">red</span> <span color="green">green</span> <span color="blue">blue</span>';
 
-$pdf->SetFillColor(255,255,0);
+$pdf->SetFillColor(255, 255, 0);
 
 $pdf->writeHTMLCell(0, 0, '', '', $cellcontent, 'LRTB', 1, 0, true, 'L');
 $pdf->writeHTMLCell(0, 0, '', '', $cellcontent, 'LRTB', 1, 1, true, 'C');
@@ -168,9 +168,9 @@ require_once('../htmlcolors.php');
 $textcolors = '<h1>HTML Text Colors</h1>';
 $bgcolors = '<hr /><h1>HTML Background Colors</h1>';
 
-foreach($webcolor as $k => $v) {
-	$textcolors .= '<span color="#'.$v.'">'.$v.'</span> ';
-	$bgcolors .= '<span bgcolor="#'.$v.'" color="#333333">'.$v.'</span> ';
+foreach ($webcolor as $k => $v) {
+    $textcolors .= '<span color="#' . $v . '">' . $v . '</span> ';
+    $bgcolors .= '<span bgcolor="#' . $v . '" color="#333333">' . $v . '</span> ';
 }
 
 // output the HTML content
@@ -195,7 +195,7 @@ $teststr2 = '<small>small text</small> normal <small>small text</small> normal <
 
 $teststr3 = '<font size="10" color="#ff7f50">The</font> <font size="10" color="#6495ed">quick</font> <font size="14" color="#dc143c">brown</font> <font size="18" color="#008000">fox</font> <font size="22"><a href="http://www.tcpdf.org">jumps</a></font> <font size="22" color="#a0522d">over</font> <font size="18" color="#da70d6">the</font> <font size="14" color="#9400d3">lazy</font> <font size="10" color="#4169el">dog</font>.';
 
-$html = $teststr1.'<br />'.$teststr2.'<br />'.$teststr3.'<br />'.$teststr3.'<br />'.$teststr2;
+$html = $teststr1 . '<br />' . $teststr2 . '<br />' . $teststr3 . '<br />' . $teststr3 . '<br />' . $teststr2;
 
 // output the HTML content
 $pdf->writeHTML($html, true, 0, true, 0);

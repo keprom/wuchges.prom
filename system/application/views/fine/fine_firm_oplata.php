@@ -4,18 +4,21 @@ function f_d($var)
     if ($var == 0) return "&nbsp;"; else
         return sprintf("%22.2f", $var);
 }
+
 function f_d2($var)
 {
     return sprintf("%22.2f", $var);
 }
+
 function datetostring($date)
 {
     $d = explode("-", $date);
     return $d['2'] . '.' . $d['1'];
 }
+
 ?>
 
-<?php echo anchor(base_url()."/billing/fine/".$firm_info->id,"Назад к фирме" )."<br>";?>
+<?php echo anchor(base_url() . "/billing/fine/" . $firm_info->id, "Назад к фирме") . "<br>"; ?>
 <h3><?php echo $firm_info->dogovor . ' - ' . $firm_info->name; ?></h3>
 <b>Оплата за <?php echo mb_strtolower($period_info->name, 'utf-8'); ?>:</b><br><br>
 

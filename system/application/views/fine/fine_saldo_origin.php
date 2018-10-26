@@ -14,7 +14,7 @@
     </style>
 </head>
 <body>
-<?php echo anchor(base_url()."/billing/fine/".$firm_info->id,"Назад" )."<br><br>";?>
+<?php echo anchor(base_url() . "/billing/fine/" . $firm_info->id, "Назад") . "<br><br>"; ?>
 <table class="border-table">
     <caption>
         <?php echo '№' . $firm_info->dogovor . ' ' . $firm_info->name; ?>

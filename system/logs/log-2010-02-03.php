@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); ?>
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
 
 DEBUG - 2010-02-03 04:00:17 --> Config Class Initialized
 DEBUG - 2010-02-03 04:00:17 --> Hooks Class Initialized
@@ -106,14 +106,15 @@ DEBUG - 2010-02-03 04:01:44 --> Helper loaded: string_helper
 DEBUG - 2010-02-03 04:01:44 --> Encrypt Class Initialized
 DEBUG - 2010-02-03 04:01:44 --> Session routines successfully run
 DEBUG - 2010-02-03 04:01:44 --> Controller Class Initialized
-ERROR - 2010-02-03 04:01:44 --> Severity: Warning  --> pg_query() [<a href='function.pg-query'>function.pg-query</a>]: Query failed: ERROR:  function industry.is_closed(integer) does not exist
+ERROR - 2010-02-03 04:01:44 --> Severity: Warning  --> pg_query() [<a
+        href='function.pg-query'>function.pg-query</a>]: Query failed: ERROR:  function industry.is_closed(integer) does not exist
 LINE 1: Select industry.is_closed(37972) as closed
-               ^
+^
 HINT:  No function matches the given name and argument types. You might need to add explicit type casts. C:\Program Files\PostgreSQL\EnterpriseDB-ApachePhp\apache\www\system\database\drivers\postgre\postgre_driver.php 153
 DEBUG - 2010-02-03 04:01:44 --> DB Transaction Failure
 ERROR - 2010-02-03 04:01:44 --> Query error: ERROR:  function industry.is_closed(integer) does not exist
 LINE 1: Select industry.is_closed(37972) as closed
-               ^
+^
 HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
 DEBUG - 2010-02-03 04:01:44 --> Language file loaded: language/english/db_lang.php
 DEBUG - 2010-02-03 04:03:26 --> Config Class Initialized
@@ -393,7 +394,8 @@ DEBUG - 2010-02-03 04:05:23 --> Helper loaded: string_helper
 DEBUG - 2010-02-03 04:05:23 --> Encrypt Class Initialized
 DEBUG - 2010-02-03 04:05:23 --> Session routines successfully run
 DEBUG - 2010-02-03 04:05:23 --> Controller Class Initialized
-ERROR - 2010-02-03 04:05:23 --> Severity: Warning  --> pg_query() [<a href='function.pg-query'>function.pg-query</a>]: Query failed: ERROR:  relation &quot;industry.energo_24&quot; does not exist C:\Program Files\PostgreSQL\EnterpriseDB-ApachePhp\apache\www\system\database\drivers\postgre\postgre_driver.php 153
+ERROR - 2010-02-03 04:05:23 --> Severity: Warning  --> pg_query() [<a
+        href='function.pg-query'>function.pg-query</a>]: Query failed: ERROR:  relation &quot;industry.energo_24&quot; does not exist C:\Program Files\PostgreSQL\EnterpriseDB-ApachePhp\apache\www\system\database\drivers\postgre\postgre_driver.php 153
 DEBUG - 2010-02-03 04:05:23 --> DB Transaction Failure
 ERROR - 2010-02-03 04:05:23 --> Query error: ERROR:  relation "industry.energo_24" does not exist
 DEBUG - 2010-02-03 04:05:23 --> Language file loaded: language/english/db_lang.php

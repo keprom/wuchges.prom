@@ -1,8 +1,8 @@
-    options =
+options =
     {
-        seriesColors: [  "#000000",  "#000000"],  // colors that will
-             // be assigned to the series.  If there are more series than colors, colors
-             // will wrap around and start at the beginning again.
+        seriesColors: ["#000000", "#000000"],  // colors that will
+        // be assigned to the series.  If there are more series than colors, colors
+        // will wrap around and start at the beginning again.
 
         stackSeries: false, // if true, will create a stack plot.
                             // Currently supported by line and bar graphs.
@@ -95,7 +95,7 @@
             }
         },
 
-        series:[
+        series: [
             {Each series has same options as seriesDefaults},
             {You can override each series individually here}
         ],
@@ -119,7 +119,7 @@
             shadowWidth: 3,             // width of the stroke for the shadow.
             shadowDepth: 3,             // Number of strokes to make when drawing shadow.
                                         // Each stroke offset by shadowOffset from the last.
-            shadowAlpha: 0.07 ,          // Opacity of the shadow
+            shadowAlpha: 0.07,          // Opacity of the shadow
             renderer: $.jqplot.CanvasGridRenderer,  // renderer to use to draw the grid.
             rendererOptions: {}         // options to pass to the renderer.  Note, the default
                                         // CanvasGridRenderer takes no additional options.
@@ -197,9 +197,9 @@
             tooltipFadeSpeed: "fast",// slow, def, fast, or a number of milliseconds.
             tooltipOffset: 2,       // pixel offset of tooltip from the highlight.
             tooltipAxes: 'both',    // which axis values to display in the tooltip, x, y or both.
-            tooltipSeparator: ', ' , // separator between values in the tooltip.
+            tooltipSeparator: ', ', // separator between values in the tooltip.
             useAxesFormatters: true, // use the same format string and formatters as used in the axes to
-                                    // display values in the tooltip.
+            // display values in the tooltip.
             tooltipFormatString: '%.5P' // sprintf format string for the tooltip.  only used if
                                         // useAxesFormatters is false.  Will use sprintf formatter with
                                         // this string, not the axes formatters.

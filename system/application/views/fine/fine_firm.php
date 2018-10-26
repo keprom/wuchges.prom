@@ -153,7 +153,7 @@ if ($saldo > 0) {
                 echo "<td align='right'>" . prettify_number(0) . "</td>";
             }
             echo "<td align='right'>" . prettify_number($fine_new) . "</td>";
-            echo "<td align='right'>" . prettify_number($fine_new+$fine_old) . "</td>";
+            echo "<td align='right'>" . prettify_number($fine_new + $fine_old) . "</td>";
             $day_buf_old = $day;
             echo "</tr>";
         }

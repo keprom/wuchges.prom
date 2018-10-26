@@ -27,28 +27,28 @@
 
 require_once("phplot.php");
 
-class PHPlot_Data extends PHPlot 
+class PHPlot_Data extends PHPlot
 {
     /*!
      * Constructor
      */
-    function PHPlot_Data($which_width=600, $which_height=400, $which_output_file=NULL, $which_input_file=NULL)
-    { 
-        if (! isset($this->img)) { 
+    function PHPlot_Data($which_width = 600, $which_height = 400, $which_output_file = NULL, $which_input_file = NULL)
+    {
+        if (!isset($this->img)) {
             $this->PHPlot($which_width, $which_height, $which_output_file, $which_input_file);
         }
     }
-    
+
     /*!
      * Will scale all data rows
      * Maybe later I will do a function that only scales some rows
      * if $even is TRUE, data will be scaled with "even" factors. 
      * \note Original code by Thiemo Nagel
      */
-    function DoScaleData($even, $show_in_legend) 
+    function DoScaleData($even, $show_in_legend)
     {
         $offset = 0;        // We use this not to read labels in text-data
-            
+
         if ($this->data_type == 'text-data') {
             $offset = 1;
         } elseif ($this->data_type != 'data-data') {
@@ -59,24 +59,24 @@ class PHPlot_Data extends PHPlot
         // Determine maxima for each data row in array $max
         // Put maximum of the maxima in $maxmax
         $maxmax = 0;
-        for($i=0; $i < $this->num_data_rows; $i++) {
+        for ($i = 0; $i < $this->num_data_rows; $i++) {
             $rowsize = count($this->data[$i]);
-            for ($j=$offset; $j < $rowsize; $j++) {
+            for ($j = $offset; $j < $rowsize; $j++) {
                 if ($this->data[$i][$j] > @ $max[$j])
                     $max[$j] = $this->data[$i][$j];
-                if (@ $max[$j] > $maxmax) 
+                if (@ $max[$j] > $maxmax)
                     $maxmax = $max[$j];
             }
         }
-        
+
         // determine amplification factor $amplify
         $end = count($max) + $offset;
-        for ($i=$offset; $i < $end; $i++) {
+        for ($i = $offset; $i < $end; $i++) {
             if ($max[$i] == 0 || $max[$i] == $maxmax) {
                 $amplify[$i] = 1;  // no divide by zero
             } else {
                 if ($even) {
-                    $amp = pow(10,round(log10($maxmax / $max[$i]))-1);
+                    $amp = pow(10, round(log10($maxmax / $max[$i])) - 1);
                     if ($amp * $max[$i] * 5 < $maxmax) {
                         $amp *= 5;
                     } elseif ($amp * $max[$i] * 2 < $maxmax) {
@@ -85,11 +85,11 @@ class PHPlot_Data extends PHPlot
                 } else {
                     $amp = $maxmax / $max[$i];
                     $digits = floor(log10($amp));
-                    $amp = round($amp/pow(10,$digits-1))*pow(10,$digits-1);
+                    $amp = round($amp / pow(10, $digits - 1)) * pow(10, $digits - 1);
                 }
                 $amplify[$i] = $amp;
             }
-            if ($amplify[$i] != 1 && $show_in_legend) 
+            if ($amplify[$i] != 1 && $show_in_legend)
                 @ $this->legend[$i] .= "*$amplify[$i]";
         }
 
@@ -98,7 +98,7 @@ class PHPlot_Data extends PHPlot
         // the for loops were 43.2% faster (MBD)
         for ($i = 0; $i < $this->num_data_rows; $i++) {
             $rowsize = count($this->data[$i]);
-            for ($j=$offset; $j < $rowsize; $j++) {
+            for ($j = $offset; $j < $rowsize; $j++) {
                 $this->data[$i][$j] *= $amplify[$j];
             }
         }
@@ -127,12 +127,12 @@ class PHPlot_Data extends PHPlot
      *
      *  \note Original idea by Theimo Nagel
      */
-    function DoMovingAverage($datarow, $interval, $show=TRUE, $color=NULL, $width=NULL)
+    function DoMovingAverage($datarow, $interval, $show = TRUE, $color = NULL, $width = NULL)
     {
         $off = 1;               // Skip record #0 (data label) 
-        
+
         $this->PadArrays();
-        
+
         if ($interval == 0) {
             $this->DrawError('DoMovingAverage(): interval can\'t be 0');
             return FALSE;
@@ -142,7 +142,7 @@ class PHPlot_Data extends PHPlot
             $this->DrawError("DoMovingAverage(): Data row out of bounds ($datarow >= $this->records_per_group)");
             return FALSE;
         }
-        
+
         if ($this->data_type == 'text-data') {
             // Ok. No need to set the offset to skip more records.
         } elseif ($this->data_type == 'data-data') {
@@ -151,7 +151,7 @@ class PHPlot_Data extends PHPlot
             $this->DrawError('DoMovingAverage(): wrong data type!!');
             return FALSE;
         }
-        
+
         // Set color:
         if ($color) {
             array_push($this->ndx_data_colors, $this->SetIndexDarkColor($color));
@@ -161,12 +161,12 @@ class PHPlot_Data extends PHPlot
         // Set line width:
         if ($width) {
             array_push($this->line_widths, $width);
-        } else {    
-            array_push($this->line_widths,  $this->line_widths[$datarow] * 2);
+        } else {
+            array_push($this->line_widths, $this->line_widths[$datarow] * 2);
         }
         // Show in legend?
         if ($show) {
-            $this->legend[$this->records_per_group-1] = "(MA[$datarow]:$interval)";
+            $this->legend[$this->records_per_group - 1] = "(MA[$datarow]:$interval)";
         }
 
         $datarow += $off;
@@ -196,14 +196,14 @@ class PHPlot_Data extends PHPlot
             $this->DrawError('DoWeightedMovingAverage(): wrong data type!!');
             return FALSE;
         }
-        
+
         if ($show_in_legend) {
             $this->legend[$datarow] .= " (MA: $interval)";
         }
 
         $storage[0] = $this->data[0][$datarow];
-        for ($i=1;$i < $this->num_data_rows; $i++) {
-            $storage[$i] = @ $storage[$i-1] + $perc * ($this->data[$i][$datarow] - $storage[$i-1]);
+        for ($i = 1; $i < $this->num_data_rows; $i++) {
+            $storage[$i] = @ $storage[$i - 1] + $perc * ($this->data[$i][$datarow] - $storage[$i - 1]);
             $ma = array_sum($storage);
             $ma /= count($storage);
             $this->data[$i][$datarow] = $ma;
@@ -211,11 +211,11 @@ class PHPlot_Data extends PHPlot
         return TRUE;
     } // function DoExponentialMovingAverage()
 
-    
+
     /*!
      * Removes the DataSet of number $index
      */
-    function DoRemoveDataSet($index) 
+    function DoRemoveDataSet($index)
     {
         $offset = 1;
         if ($this->data_type == 'data-data') {
@@ -224,13 +224,13 @@ class PHPlot_Data extends PHPlot
             $this->DrawError('wrong data type!!');
             return FALSE;
         }
-    
+
         $index += $offset;
-        foreach ($this->data as $key=>$val) {
-            foreach ($val as $key2=>$val2) {
+        foreach ($this->data as $key => $val) {
+            foreach ($val as $key2 => $val2) {
                 if ($key2 >= $index) {
-                    if (isset($this->data[$key][$key2+1])) {
-                        $this->data[$key][$key2] = $this->data[$key][$key2+1];
+                    if (isset($this->data[$key][$key2 + 1])) {
+                        $this->data[$key][$key2] = $this->data[$key][$key2 + 1];
                     } else {
                         unset($this->data[$key][$key2]);
                     }
@@ -238,13 +238,13 @@ class PHPlot_Data extends PHPlot
             }
         }
     } // function DoRemoveDataSet
-    
-    
+
+
     /*!
      * Computes row x divided by row y, stores the result in row x
      * and deletes row y
      */
-    function DoDivision($x,$y) 
+    function DoDivision($x, $y)
     {
         $offset = 1;
         if ($this->data_type == 'data-data') {
@@ -253,8 +253,9 @@ class PHPlot_Data extends PHPlot
             $this->DrawError('wrong data type!!');
             return FALSE;
         }
-    
-        $x += $offset; $y += $offset;
+
+        $x += $offset;
+        $y += $offset;
         reset($this->data);
         while (list($key, $val) = each($this->data)) {
             if ($this->data[$key][$y] == 0) {
@@ -263,8 +264,8 @@ class PHPlot_Data extends PHPlot
                 $this->data[$key][$x] /= $this->data[$key][$y];
             }
         }
-    
-        $this->DoRemoveDataSet($y-$offset);
+
+        $this->DoRemoveDataSet($y - $offset);
     } // function DoDivision
 
 } // class PHPlot_Data extends PHPlot

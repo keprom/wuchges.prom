@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 /*
 |--------------------------------------------------------------------------
@@ -11,7 +11,7 @@
 |	http://example.com/
 |
 */
-$config['base_url']	= "/";
+$config['base_url'] = "/";
 
 
 /*
@@ -42,7 +42,7 @@ $config['index_page'] = "index.php";
 | 'ORIG_PATH_INFO'	Uses the ORIG_PATH_INFO
 |
 */
-$config['uri_protocol']	= "AUTO";
+$config['uri_protocol'] = "AUTO";
 
 /*
 |--------------------------------------------------------------------------
@@ -67,7 +67,7 @@ $config['url_suffix'] = "";
 | than english.
 |
 */
-$config['language']	= "english";
+$config['language'] = "english";
 
 /*
 |--------------------------------------------------------------------------
@@ -150,9 +150,9 @@ $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
 |
 */
 $config['enable_query_strings'] = FALSE;
-$config['controller_trigger'] 	= 'c';
-$config['function_trigger'] 	= 'm';
-$config['directory_trigger'] 	= 'd'; // experimental not currently in use
+$config['controller_trigger'] = 'c';
+$config['function_trigger'] = 'm';
+$config['directory_trigger'] = 'd'; // experimental not currently in use
 
 /*
 |--------------------------------------------------------------------------
@@ -232,14 +232,14 @@ $config['encryption_key'] = "";
 | 'time_to_update'		= how many seconds between CI refreshing Session Information
 |
 */
-$config['sess_cookie_name']		= 'zashisheno_kasperskim';
-$config['sess_expiration']		= 12000;
-$config['sess_encrypt_cookie']	= TRUE;
-$config['sess_use_database']	= TRUE;
-$config['sess_table_name']		= 'ci_sessions';
-$config['sess_match_ip']		= FALSE;
-$config['sess_match_useragent']	= FALSE;
-$config['sess_time_to_update'] 	= 100;
+$config['sess_cookie_name'] = 'zashisheno_kasperskim';
+$config['sess_expiration'] = 12000;
+$config['sess_encrypt_cookie'] = TRUE;
+$config['sess_use_database'] = TRUE;
+$config['sess_table_name'] = 'ci_sessions';
+$config['sess_match_ip'] = FALSE;
+$config['sess_match_useragent'] = FALSE;
+$config['sess_time_to_update'] = 100;
 
 /*
 |--------------------------------------------------------------------------
@@ -251,9 +251,9 @@ $config['sess_time_to_update'] 	= 100;
 | 'cookie_path'   =  Typically will be a forward slash
 |
 */
-$config['cookie_prefix']	= "";
-$config['cookie_domain']	= "";
-$config['cookie_path']		= "/";
+$config['cookie_prefix'] = "";
+$config['cookie_domain'] = "";
+$config['cookie_path'] = "/";
 
 /*
 |--------------------------------------------------------------------------

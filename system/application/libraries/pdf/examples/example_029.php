@@ -34,7 +34,7 @@ require_once('../config/lang/eng.php');
 require_once('../tcpdf.php');
 
 // create new PDF document
-$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false); 
+$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
@@ -62,30 +62,30 @@ $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 
 //set image scale factor
-$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO); 
+$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
 //set some language-dependent strings
-$pdf->setLanguageArray($l); 
+$pdf->setLanguageArray($l);
 
 // ---------------------------------------------------------
 
 $preferences = array(
-	'HideToolbar' => true,
-	'HideMenubar' => true,
-	'HideWindowUI' => true,
-	'FitWindow' => true,
-	'CenterWindow' => true,
-	'DisplayDocTitle' => true,
-	'NonFullScreenPageMode' => 'UseNone', // UseNone, UseOutlines, UseThumbs, UseOC
-	'ViewArea' => 'CropBox', // CropBox, BleedBox, TrimBox, ArtBox
-	'ViewClip' => 'CropBox', // CropBox, BleedBox, TrimBox, ArtBox
-	'PrintArea' => 'CropBox', // CropBox, BleedBox, TrimBox, ArtBox
-	'PrintClip' => 'CropBox', // CropBox, BleedBox, TrimBox, ArtBox
-	'PrintScaling' => 'AppDefault', // None, AppDefault
-	'Duplex' => 'DuplexFlipLongEdge', // Simplex, DuplexFlipShortEdge, DuplexFlipLongEdge
-	'PickTrayByPDFSize' => true,
-	'PrintPageRange' => array(1,1,2,3),
-	'NumCopies' => 2
+    'HideToolbar' => true,
+    'HideMenubar' => true,
+    'HideWindowUI' => true,
+    'FitWindow' => true,
+    'CenterWindow' => true,
+    'DisplayDocTitle' => true,
+    'NonFullScreenPageMode' => 'UseNone', // UseNone, UseOutlines, UseThumbs, UseOC
+    'ViewArea' => 'CropBox', // CropBox, BleedBox, TrimBox, ArtBox
+    'ViewClip' => 'CropBox', // CropBox, BleedBox, TrimBox, ArtBox
+    'PrintArea' => 'CropBox', // CropBox, BleedBox, TrimBox, ArtBox
+    'PrintClip' => 'CropBox', // CropBox, BleedBox, TrimBox, ArtBox
+    'PrintScaling' => 'AppDefault', // None, AppDefault
+    'Duplex' => 'DuplexFlipLongEdge', // Simplex, DuplexFlipShortEdge, DuplexFlipLongEdge
+    'PickTrayByPDFSize' => true,
+    'PrintPageRange' => array(1, 1, 2, 3),
+    'NumCopies' => 2
 );
 
 // set pdf viewer preferences

@@ -5,9 +5,9 @@
     <?php endforeach; ?>
 </select>
 Фильтрация : <select name='firm_type'>
-    <option value='1' >Выдать всех</option>
-    <option value='2' >Только Юр лица</option>
-    <option value='3' >Только ИП</option>
+    <option value='1'>Выдать всех</option>
+    <option value='2'>Только Юр лица</option>
+    <option value='3'>Только ИП</option>
 </select>
 <input type="submit" value="Открыть">
 <?php echo form_close(); ?>

@@ -33,18 +33,18 @@
     <tbody>
     <?php $i = 1; ?>
     <?php foreach ($report as $r): ?>
-    <tr>
-        <td class="td-number"><?php echo $i++; ?></td>
-        <td><?php echo $r->dogovor." ".$r->firm_name; ?></td>
-        <td><?php echo $r->bill_name; ?></td>
-        <td class="td-number"><?php echo $r->gos_nomer; ?></td>
-        <td><?php echo $r->bpic_data; ?></td>
-        <td><?php echo $r->act_number; ?></td>
-        <td><?php echo $r->data_gos_proverki; ?></td>
-        <td><?php echo $r->trans_data_gp; ?></td>
-        <td></td>
-        <td></td>
-    </tr>
+        <tr>
+            <td class="td-number"><?php echo $i++; ?></td>
+            <td><?php echo $r->dogovor . " " . $r->firm_name; ?></td>
+            <td><?php echo $r->bill_name; ?></td>
+            <td class="td-number"><?php echo $r->gos_nomer; ?></td>
+            <td><?php echo $r->bpic_data; ?></td>
+            <td><?php echo $r->act_number; ?></td>
+            <td><?php echo $r->data_gos_proverki; ?></td>
+            <td><?php echo $r->trans_data_gp; ?></td>
+            <td></td>
+            <td></td>
+        </tr>
     <?php endforeach; ?>
     </tbody>
 </table>

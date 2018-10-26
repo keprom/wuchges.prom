@@ -1,32 +1,32 @@
 /**
-* Copyright (c) 2009 Chris Leonello
-* This software is licensed under the GPL version 2.0 and MIT licenses.
-*/
-(function($) {  
+ * Copyright (c) 2009 Chris Leonello
+ * This software is licensed under the GPL version 2.0 and MIT licenses.
+ */
+(function ($) {
     /**
      * Class: $.jqplot.DateAxisRenderer
      * A plugin for a jqPlot to render an axis as a series of date values.
      * This renderer has no options beyond those supplied by the <Axis> class.
      * It supplies it's own tick formatter, so the tickOptions.formatter option
      * should not be overridden.
-     * 
+     *
      * Thanks to Ken Synder for his enhanced Date instance methods which are
      * included with this code <http://kendsnyder.com/sandbox/date/>.
-     * 
+     *
      * To use this renderer, include the plugin in your source
      * > <script type="text/javascript" language="javascript" src="plugins/jqplot.dateAxisRenderer.js" />
-     * 
+     *
      * and supply the appropriate options to your plot
-     * 
+     *
      * > {axes:{xaxis:{renderer:$.jqplot.DateAxisRenderer}}}
-     * 
-     * Dates can be passed into the axis in almost any recognizable value and 
+     *
+     * Dates can be passed into the axis in almost any recognizable value and
      * will be parsed.  They will be rendered on the axis in the format
      * specified by tickOptions.formatString.  e.g. tickOptions.formatString = '%Y-%m-%d'.
-     * 
-     * Accecptable format codes 
+     *
+     * Accecptable format codes
      * are:
-     * 
+     *
      * > Code    Result                  Description
      * >             == Years ==
      * > %Y      2008                Four-digit year
@@ -77,23 +77,23 @@
      * >             == Characters ==
      * > %n      \n                  Newline
      * > %t      \t                  Tab
-     * > %%      %                   Percent Symbol 
+     * > %%      %                   Percent Symbol
      */
-    $.jqplot.DateAxisRenderer = function() {
+    $.jqplot.DateAxisRenderer = function () {
         $.jqplot.LinearAxisRenderer.call(this);
     };
-    
+
     $.jqplot.DateAxisRenderer.prototype = new $.jqplot.LinearAxisRenderer();
     $.jqplot.DateAxisRenderer.prototype.constructor = $.jqplot.DateAxisRenderer;
-    
-    $.jqplot.DateTickFormatter = function(format, val) {
+
+    $.jqplot.DateTickFormatter = function (format, val) {
         if (!format) {
-        	format = '%Y/%m/%d';
+            format = '%Y/%m/%d';
         }
         return Date.create(val).strftime(format);
     };
-    
-    $.jqplot.DateAxisRenderer.prototype.init = function(options){
+
+    $.jqplot.DateAxisRenderer.prototype.init = function (options) {
         // prop: tickRenderer
         // A class of a rendering engine for creating the ticks labels displayed on the plot, 
         // See <$.jqplot.AxisTickRenderer>.
@@ -105,40 +105,40 @@
         var db = this._dataBounds;
         // Go through all the series attached to this axis and find
         // the min/max bounds for this axis.
-        for (var i=0; i<this._series.length; i++) {
+        for (var i = 0; i < this._series.length; i++) {
             var s = this._series[i];
             var d = s.data;
             var pd = s._plotData;
             var sd = s._stackData;
-            
-            for (var j=0; j<d.length; j++) { 
+
+            for (var j = 0; j < d.length; j++) {
                 if (this.name == 'xaxis' || this.name == 'x2axis') {
                     d[j][0] = Date.create(d[j][0]).getTime();
                     pd[j][0] = Date.create(d[j][0]).getTime();
                     sd[j][0] = Date.create(d[j][0]).getTime();
                     if (d[j][0] < db.min || db.min == null) {
-                    	db.min = d[j][0];
+                        db.min = d[j][0];
                     }
                     if (d[j][0] > db.max || db.max == null) {
-                    	db.max = d[j][0];
+                        db.max = d[j][0];
                     }
-                }              
+                }
                 else {
                     d[j][1] = Date.create(d[j][1]).getTime();
                     pd[j][1] = Date.create(d[j][1]).getTime();
                     sd[j][1] = Date.create(d[j][1]).getTime();
                     if (d[j][1] < db.min || db.min == null) {
-                    	db.min = d[j][1];
+                        db.min = d[j][1];
                     }
                     if (d[j][1] > db.max || db.max == null) {
-                    	db.max = d[j][1];
+                        db.max = d[j][1];
                     }
-                }              
+                }
             }
         }
     };
-    
-    $.jqplot.DateAxisRenderer.prototype.createTicks = function() {
+
+    $.jqplot.DateAxisRenderer.prototype.createTicks = function () {
         // we're are operating on an axis here
         var ticks = this._ticks;
         var userTicks = this.ticks;
@@ -149,13 +149,13 @@
         var min, max;
         var pos1, pos2;
         var tt, i;
-        
+
         // if we already have ticks, use them.
         // ticks must be in order of increasing value.
-        
+
         if (userTicks.length) {
             // ticks could be 1D or 2D array of [val, val, ,,,] or [[val, label], [val, label], ...] or mixed
-            for (i=0; i<userTicks.length; i++){
+            for (i = 0; i < userTicks.length; i++) {
                 var ut = userTicks[i];
                 var t = new this.tickRenderer(this.tickOptions);
                 if (ut.constructor == Array) {
@@ -171,7 +171,7 @@
                     t.setTick(t.value, this.name);
                     this._ticks.push(t);
                 }
-                
+
                 else {
                     t.value = Date.create(ut).getTime();
                     if (!this.showTicks) {
@@ -187,10 +187,10 @@
             }
             this.numberTicks = userTicks.length;
             this.min = this._ticks[0].value;
-            this.max = this._ticks[this.numberTicks-1].value;
-            this._tickInterval = [(this.max - this.min) / (this.numberTicks - 1)/1000, 'seconds'];
+            this.max = this._ticks[this.numberTicks - 1].value;
+            this._tickInterval = [(this.max - this.min) / (this.numberTicks - 1) / 1000, 'seconds'];
         }
-        
+
         // we don't have any ticks yet, let's make some!
         else {
             if (name == 'xaxis' || name == 'x2axis') {
@@ -199,15 +199,14 @@
             else {
                 dim = this._plotDimensions.height;
             }
-            
+
             // if min, max and number of ticks specified, user can't specify interval.
             if (this.min != null && this.max != null && this.numberTicks != null) {
                 this.tickInterval = null;
             }
-            
+
             // if user specified a tick interval, convert to usable.
-            if (this.tickInterval != null)
-            {
+            if (this.tickInterval != null) {
                 // if interval is a number or can be converted to one, use it.
                 // Assume it is in SECONDS!!!
                 if (Number(this.tickInterval)) {
@@ -224,50 +223,50 @@
                     }
                 }
             }
-        
+
             min = ((this.min != null) ? Date.create(this.min).getTime() : db.min);
             max = ((this.max != null) ? Date.create(this.max).getTime() : db.max);
-            
+
             // if min and max are same, space them out a bit
             if (min == max) {
-                var adj = 24*60*60*500;  // 1/2 day
+                var adj = 24 * 60 * 60 * 500;  // 1/2 day
                 min -= adj;
                 max += adj;
             }
 
             var range = max - min;
             var rmin, rmax;
-        
-            rmin = (this.min != null) ? Date.create(this.min).getTime() : min - range/2*(this.padMin - 1);
-            rmax = (this.max != null) ? Date.create(this.max).getTime() : max + range/2*(this.padMax - 1);
+
+            rmin = (this.min != null) ? Date.create(this.min).getTime() : min - range / 2 * (this.padMin - 1);
+            rmax = (this.max != null) ? Date.create(this.max).getTime() : max + range / 2 * (this.padMax - 1);
             this.min = rmin;
             this.max = rmax;
             range = this.max - this.min;
-    
-            if (this.numberTicks == null){
+
+            if (this.numberTicks == null) {
                 // if tickInterval is specified by user, we will ignore computed maximum.
                 // max will be equal or greater to fit even # of ticks.
                 if (this._tickInterval != null) {
                     var nc = Date.create(this.max).diff(this.min, this._tickInterval[1], true);
-                    this.numberTicks = Math.ceil(nc/this._tickInterval[0]) +1;
+                    this.numberTicks = Math.ceil(nc / this._tickInterval[0]) + 1;
                     //log(this._tickInterval, nc, this.numberTicks);
                     // this.max = Date.create(this.min).add(this.numberTicks-1, this._tickInterval[1]).getTime();
-                    this.max = Date.create(this.min).add((this.numberTicks-1) * this._tickInterval[0], this._tickInterval[1]).getTime();
+                    this.max = Date.create(this.min).add((this.numberTicks - 1) * this._tickInterval[0], this._tickInterval[1]).getTime();
                 }
                 else if (dim > 200) {
-                    this.numberTicks = parseInt(3+(dim-200)/100, 10);
+                    this.numberTicks = parseInt(3 + (dim - 200) / 100, 10);
                 }
                 else {
                     this.numberTicks = 2;
                 }
             }
-    
+
             if (this._tickInterval == null) {
-            	this._tickInterval = [range / (this.numberTicks-1)/1000, 'seconds'];
+                this._tickInterval = [range / (this.numberTicks - 1) / 1000, 'seconds'];
             }
-            for (var i=0; i<this.numberTicks; i++){
+            for (var i = 0; i < this.numberTicks; i++) {
                 var min = Date.create(this.min);
-                tt = min.add(i*this._tickInterval[0], this._tickInterval[1]).getTime();
+                tt = min.add(i * this._tickInterval[0], this._tickInterval[1]).getTime();
                 var t = new this.tickRenderer(this.tickOptions);
                 // var t = new $.jqplot.AxisTickRenderer(this.tickOptions);
                 if (!this.showTicks) {
@@ -282,34 +281,33 @@
             }
         }
     };
-    
-    
-    
+
+
     /**
      * Date instance methods
      *
      * @author Ken Snyder (ken d snyder at gmail dot com)
      * @date 2008-09-10
-     * @version 2.0.2 (http://kendsnyder.com/sandbox/date/)     
+     * @version 2.0.2 (http://kendsnyder.com/sandbox/date/)
      * @license Creative Commons Attribution License 3.0 (http://creativecommons.org/licenses/by/3.0/)
      *
      * @contributions Chris Leonello
-     * @comment Bug fix to 12 hour time and additions to handle milliseconds and 
+     * @comment Bug fix to 12 hour time and additions to handle milliseconds and
      * @comment 24 hour time without am/pm suffix
      *
      */
- 
-    // begin by creating a scope for utility variables
-    
-    //
-    // pre-calculate the number of milliseconds in a day
-    //  
-    
+
+        // begin by creating a scope for utility variables
+
+        //
+        // pre-calculate the number of milliseconds in a day
+        //
+
     var day = 24 * 60 * 60 * 1000;
     //
     // function to add leading zeros
     //
-    var zeroPad = function(number, digits) {
+    var zeroPad = function (number, digits) {
         number = String(number);
         while (number.length < digits) {
             number = '0' + number;
@@ -328,7 +326,7 @@
         week: 7 * day,
         month: {
             // add a number of months
-            add: function(d, number) {
+            add: function (d, number) {
                 // add any years needed (increments of 12)
                 multipliers.year.add(d, Math[number > 0 ? 'floor' : 'ceil'](number / 12));
                 // ensure that we properly wrap betwen December and January
@@ -343,7 +341,7 @@
                 d.setMonth(prevMonth);
             },
             // get the number of months between two Date objects (decimal to the nearest day)
-            diff: function(d1, d2) {
+            diff: function (d1, d2) {
                 // get the number of years
                 var diffYears = d1.getFullYear() - d2.getFullYear();
                 // get the number of remaining months
@@ -356,14 +354,14 @@
         },
         year: {
             // add a number of years
-            add: function(d, number) {
+            add: function (d, number) {
                 d.setYear(d.getFullYear() + Math[number > 0 ? 'floor' : 'ceil'](number));
             },
             // get the number of years between two Date objects (decimal to the nearest day)
-            diff: function(d1, d2) {
+            diff: function (d1, d2) {
                 return multipliers.month.diff(d1, d2) / 12;
             }
-        }        
+        }
     };
     //
     // alias each multiplier with an 's' to allow 'year' and 'years' for example
@@ -376,21 +374,21 @@
     //
     // take a date instance and a format code and return the formatted value
     //
-    var format = function(d, code) {
-            if (Date.prototype.strftime.formatShortcuts[code]) {
-                    // process any shortcuts recursively
-                    return d.strftime(Date.prototype.strftime.formatShortcuts[code]);
-            } else {
-                    // get the format code function and toPaddedString() argument
-                    var getter = (Date.prototype.strftime.formatCodes[code] || '').split('.');
-                    var nbr = d['get' + getter[0]] ? d['get' + getter[0]]() : '';
-                    // run toPaddedString() if specified
-                    if (getter[1]) {
-                    	nbr = zeroPad(nbr, getter[1]);
-                    }
-                    // prepend the leading character
-                    return nbr;
-            }       
+    var format = function (d, code) {
+        if (Date.prototype.strftime.formatShortcuts[code]) {
+            // process any shortcuts recursively
+            return d.strftime(Date.prototype.strftime.formatShortcuts[code]);
+        } else {
+            // get the format code function and toPaddedString() argument
+            var getter = (Date.prototype.strftime.formatCodes[code] || '').split('.');
+            var nbr = d['get' + getter[0]] ? d['get' + getter[0]]() : '';
+            // run toPaddedString() if specified
+            if (getter[1]) {
+                nbr = zeroPad(nbr, getter[1]);
+            }
+            // prepend the leading character
+            return nbr;
+        }
     };
     //
     // Add methods to Date instances
@@ -403,7 +401,7 @@
         // units: year | month | day | week | hour | minute | second | millisecond
         // @return object Date
         //
-        succ: function(unit) {
+        succ: function (unit) {
             return this.clone().add(1, unit);
         },
         //
@@ -413,7 +411,7 @@
         // @param string unit
         // @return object Date (chainable)      
         //
-        add: function(number, unit) {
+        add: function (number, unit) {
             var factor = multipliers[unit] || multipliers.day;
             if (typeof factor == 'number') {
                 this.setTime(this.getTime() + (factor * number));
@@ -430,11 +428,11 @@
         // @param boolean allowDecimal
         // @return integer/float
         //
-        diff: function(dateObj, unit, allowDecimal) {
+        diff: function (dateObj, unit, allowDecimal) {
             // ensure we have a Date object
             dateObj = Date.create(dateObj);
             if (dateObj === null) {
-            	return null;
+                return null;
             }
             // get the multiplying factor integer or factor function
             var factor = multipliers[unit] || multipliers.day;
@@ -446,7 +444,7 @@
                 var unitDiff = factor.diff(this, dateObj);
             }
             // if decimals are not allowed, round toward zero
-            return (allowDecimal ? unitDiff : Math[unitDiff > 0 ? 'floor' : 'ceil'](unitDiff));          
+            return (allowDecimal ? unitDiff : Math[unitDiff > 0 ? 'floor' : 'ceil'](unitDiff));
         },
         //
         // Convert a date to a string using traditional strftime format codes
@@ -454,7 +452,7 @@
         // @param string formatStr
         // @return string
         //
-        strftime: function(formatStr) {
+        strftime: function (formatStr) {
             // default the format string to year-month-day
             var source = formatStr || '%Y-%m-%d', result = '', match;
             // replace each format code
@@ -475,7 +473,7 @@
         //
         // @return integer
         //
-        getShortYear: function() {
+        getShortYear: function () {
             return this.getYear() % 100;
         },
         //
@@ -483,7 +481,7 @@
         //
         // @return integer
         //
-        getMonthNumber: function() {
+        getMonthNumber: function () {
             return this.getMonth() + 1;
         },
         //
@@ -491,7 +489,7 @@
         //
         // @return string
         //
-        getMonthName: function() {
+        getMonthName: function () {
             return Date.MONTHNAMES[this.getMonth()];
         },
         //
@@ -499,7 +497,7 @@
         //
         // @return string
         //
-        getAbbrMonthName: function() {
+        getAbbrMonthName: function () {
             return Date.ABBR_MONTHNAMES[this.getMonth()];
         },
         //
@@ -507,7 +505,7 @@
         //
         // @return string
         //      
-        getDayName: function() {
+        getDayName: function () {
             return Date.DAYNAMES[this.getDay()];
         },
         //
@@ -515,7 +513,7 @@
         //
         // @return string
         //      
-        getAbbrDayName: function() {
+        getAbbrDayName: function () {
             return Date.ABBR_DAYNAMES[this.getDay()];
         },
         //
@@ -523,7 +521,7 @@
         //
         // @return string
         //      
-        getDayOrdinal: function() {
+        getDayOrdinal: function () {
             return Date.ORDINALNAMES[this.getDate() % 10];
         },
         //
@@ -531,7 +529,7 @@
         //
         // @return integer
         //
-        getHours12: function() {
+        getHours12: function () {
             var hours = this.getHours();
             return hours > 12 ? hours - 12 : (hours == 0 ? 12 : hours);
         },
@@ -540,7 +538,7 @@
         //
         // @return string
         //
-        getAmPm: function() {
+        getAmPm: function () {
             return this.getHours() >= 12 ? 'PM' : 'AM';
         },
         //
@@ -548,7 +546,7 @@
         //
         // @return integer
         //
-        getUnix: function() {
+        getUnix: function () {
             return Math.round(this.getTime() / 1000, 0);
         },
         //
@@ -556,7 +554,7 @@
         //
         // @return string
         //
-        getGmtOffset: function() {
+        getGmtOffset: function () {
             // divide the minutes offset by 60
             var hours = this.getTimezoneOffset() / 60;
             // decide if we are ahead of or behind GMT
@@ -571,7 +569,7 @@
         //
         // @return string
         //
-        getTimezoneName: function() {
+        getTimezoneName: function () {
             var match = /(?:\((.+)\)$| ([A-Z]{3}) )/.exec(this.toString());
             return match[1] || match[2] || 'GMT' + this.getGmtOffset();
         },
@@ -580,16 +578,16 @@
         //
         // @return int
         //
-        toYmdInt: function() {
+        toYmdInt: function () {
             return (this.getFullYear() * 10000) + (this.getMonthNumber() * 100) + this.getDate();
-        },  
+        },
         //
         // Create a copy of a date object
         //
         // @return object
         //       
-        clone: function() {
-                return new Date(this.getTime());
+        clone: function () {
+            return new Date(this.getTime());
         }
     };
     for (var name in instanceMethods) {
@@ -605,29 +603,30 @@
         // @param string/object/integer date
         // @return object Date
         //
-        create: function(date) {
+        create: function (date) {
             // If the passed value is already a date object, return it
             if (date instanceof Date) {
-            	return date;
+                return date;
             }
             // if (typeof date == 'number') return new Date(date * 1000);
             // If the passed value is an integer, interpret it as a javascript timestamp
             if (typeof date == 'number') {
-            	return new Date(date);
+                return new Date(date);
             }
             // If the passed value is a string, attempt to parse it using Date.parse()
-            var parsable = String(date).replace(/^\s*(.+)\s*$/, '$1'), i = 0, length = Date.create.patterns.length, pattern;
+            var parsable = String(date).replace(/^\s*(.+)\s*$/, '$1'), i = 0, length = Date.create.patterns.length,
+                pattern;
             var current = parsable;
             while (i < length) {
                 ms = Date.parse(current);
                 if (!isNaN(ms)) {
-                	return new Date(ms);
+                    return new Date(ms);
                 }
                 pattern = Date.create.patterns[i];
                 if (typeof pattern == 'function') {
                     obj = pattern(current);
                     if (obj instanceof Date) {
-                    	return obj;
+                        return obj;
                     }
                 } else {
                     current = parsable.replace(pattern[0], pattern[1]);
@@ -640,11 +639,11 @@
         // constants representing month names, day names, and ordinal names
         // (same names as Ruby Date constants)
         //
-        MONTHNAMES          : 'January February March April May June July August September October November December'.split(' '),
-        ABBR_MONTHNAMES : 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' '),
-        DAYNAMES                : 'Sunday Monday Tuesday Wednesday Thursday Friday Saturday'.split(' '),
-        ABBR_DAYNAMES       : 'Sun Mon Tue Wed Thu Fri Sat'.split(' '),
-        ORDINALNAMES        : 'th st nd rd th th th th th th'.split(' '),
+        MONTHNAMES: 'January February March April May June July August September October November December'.split(' '),
+        ABBR_MONTHNAMES: 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' '),
+        DAYNAMES: 'Sunday Monday Tuesday Wednesday Thursday Friday Saturday'.split(' '),
+        ABBR_DAYNAMES: 'Sun Mon Tue Wed Thu Fri Sat'.split(' '),
+        ORDINALNAMES: 'th st nd rd th th th th th th'.split(' '),
         //
         // Shortcut for full ISO-8601 date conversion
         //
@@ -658,11 +657,11 @@
         //
         // @param object newNames
         //
-        daysInMonth: function(year, month) {
+        daysInMonth: function (year, month) {
             if (month == 2) {
-            	return new Date(year, 1, 29).getDate() == 29 ? 29 : 28;
+                return new Date(year, 1, 29).getDate() == 29 ? 29 : 28;
             }
-            return [undefined,31,undefined,31,30,31,30,31,31,30,31,30,31][month];
+            return [undefined, 31, undefined, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
         }
     };
     for (var name in staticMethods) {
@@ -717,7 +716,7 @@
         // timezone
         O: 'TimezoneOffset',
         Z: 'TimezoneName',
-        G: 'GmtOffset'  
+        G: 'GmtOffset'
     };
     //
     // shortcuts that will be translated into their longer version
@@ -753,7 +752,7 @@
         [/st|nd|rd|th/g, ''], // remove st, nd, rd and th        
         [/(3[01]|[0-2]\d)\s*\.\s*(1[0-2]|0\d)\s*\.\s*([1-9]\d{3})/, '$2/$1/$3'], // World time => Parsable US-style time
         [/([1-9]\d{3})\s*-\s*(1[0-2]|0\d)\s*-\s*(3[01]|[0-2]\d)/, '$2/$3/$1'], // ISO-style time => Parsable US-style time
-        function(str) { // 12-hour or 24 hour time with milliseconds
+        function (str) { // 12-hour or 24 hour time with milliseconds
             // var match = str.match(/^(?:(.+)\s+)?([1-9]|1[012])(?:\s*\:\s*(\d\d))?(?:\s*\:\s*(\d\d))?\s*(am|pm)\s*$/i);
             var match = str.match(/^(?:(.+)\s+)?([012]?\d)(?:\s*\:\s*(\d\d))?(?:\s*\:\s*(\d\d(\.\d*)?))?\s*(am|pm)?\s*$/i);
             //                   opt. date      hour       opt. minute     opt. second       opt. msec   opt. am or pm
@@ -761,7 +760,7 @@
                 if (match[1]) {
                     var d = Date.create(match[1]);
                     if (isNaN(d)) {
-                    	return;
+                        return;
                     }
                 } else {
                     var d = new Date();
@@ -771,83 +770,83 @@
                 if (match[6]) {
                     hour = match[6].toLowerCase() == 'am' ? (hour == 12 ? 0 : hour) : (hour == 12 ? 12 : hour + 12);
                 }
-                d.setHours(hour, parseInt(match[3] || 0, 10), parseInt(match[4] || 0, 10), ((parseFloat(match[5] || 0)) || 0)*1000);
+                d.setHours(hour, parseInt(match[3] || 0, 10), parseInt(match[4] || 0, 10), ((parseFloat(match[5] || 0)) || 0) * 1000);
                 return d;
             }
             else {
                 return str;
             }
         },
-        function(str) { // ISO timestamp with time zone.
+        function (str) { // ISO timestamp with time zone.
             var match = str.match(/^(?:(.+))[T|\s+]([012]\d)(?:\:(\d\d))(?:\:(\d\d))(?:\.\d+)([\+\-]\d\d\:\d\d)$/i);
             if (match) {
                 if (match[1]) {
                     var d = Date.create(match[1]);
                     if (isNaN(d)) {
-                    	return;
+                        return;
                     }
                 } else {
                     var d = new Date();
                     d.setMilliseconds(0);
                 }
                 var hour = parseFloat(match[2]);
-                d.setHours(hour, parseInt(match[3], 10), parseInt(match[4], 10), parseFloat(match[5])*1000);
+                d.setHours(hour, parseInt(match[3], 10), parseInt(match[4], 10), parseFloat(match[5]) * 1000);
                 return d;
             }
             else {
-                    return str;
+                return str;
             }
         },
-        function(str) {
+        function (str) {
             var match = str.match(/^([0-3]?\d)\s*[-\/.\s]{1}\s*([a-zA-Z]{3,9})\s*[-\/.\s]{1}\s*([0-3]?\d)$/);
             if (match) {
                 var d = new Date();
-                var y = parseFloat(String(d.getFullYear()).slice(2,4));
-                var cent = parseInt(String(d.getFullYear())/100)*100;
+                var y = parseFloat(String(d.getFullYear()).slice(2, 4));
+                var cent = parseInt(String(d.getFullYear()) / 100) * 100;
                 var centoffset = 1;
                 var m1 = parseFloat(match[1]);
                 var m3 = parseFloat(match[3]);
                 var ny, nd, nm;
                 if (m1 > 31) { // first number is a year
                     nd = match[3];
-                    if (m1 < y+centoffset) { // if less than 1 year out, assume it is this century.
+                    if (m1 < y + centoffset) { // if less than 1 year out, assume it is this century.
                         ny = cent + m1;
                     }
                     else {
                         ny = cent - 100 + m1;
                     }
                 }
-                
+
                 else { // last number is the year
                     nd = match[1];
-                    if (m3 < y+centoffset) { // if less than 1 year out, assume it is this century.
+                    if (m3 < y + centoffset) { // if less than 1 year out, assume it is this century.
                         ny = cent + m3;
                     }
                     else {
                         ny = cent - 100 + m3;
                     }
                 }
-                
+
                 var nm = $.inArray(match[2], Date.ABBR_MONTHNAMES);
-                
+
                 if (nm == -1) {
                     nm = $.inArray(match[2], Date.MONTHNAMES);
                 }
-            
+
                 d.setUTCFullYear(ny, nm, nd);
-                d.setUTCHours(0,0,0,0);
+                d.setUTCHours(0, 0, 0, 0);
                 return d;
             }
-            
+
             else {
                 return str;
             }
-        }        
+        }
     ];
-    
+
     if ($.jqplot.debug) {
-    	$.date = Date.create;
+        $.date = Date.create;
     }
-   
+
 })(jQuery);
 

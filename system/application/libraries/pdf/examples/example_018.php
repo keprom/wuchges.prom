@@ -34,7 +34,7 @@ require_once('../config/lang/eng.php');
 require_once('../tcpdf.php');
 
 // create new PDF document
-$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false); 
+$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
@@ -62,7 +62,7 @@ $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 
 //set image scale factor
-$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO); 
+$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
 // set some language dependent data:
 $lg = Array();
@@ -72,7 +72,7 @@ $lg['a_meta_language'] = 'fa';
 $lg['w_page'] = 'page';
 
 //set some language-dependent strings
-$pdf->setLanguageArray($lg); 
+$pdf->setLanguageArray($lg);
 
 // ---------------------------------------------------------
 
@@ -103,7 +103,7 @@ $pdf->Ln(10);
 $pdf->SetFont('almohanad', '', 18);
 
 // Arabic and English content
-$pdf->Cell(0, 12, 'بِسْمِ اللهِ الرَّحْمنِ الرَّحِيمِ',0,1,'C');
+$pdf->Cell(0, 12, 'بِسْمِ اللهِ الرَّحْمنِ الرَّحِيمِ', 0, 1, 'C');
 $htmlcontent = 'تمَّ بِحمد الله حلّ مشكلة الكتابة باللغة العربية في ملفات الـ<span color="#FF0000">PDF</span> مع دعم الكتابة <span color="#0000FF">من اليمين إلى اليسار</span> و<span color="#009900">الحركَات</span> .<br />تم الحل بواسطة <span color="#993399">صالح المطرفي و Asuni Nicola</span>  . ';
 $pdf->WriteHTML($htmlcontent, true, 0, true, 0);
 

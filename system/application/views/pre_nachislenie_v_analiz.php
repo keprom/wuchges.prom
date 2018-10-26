@@ -1,13 +1,13 @@
 <?php echo form_open("billing/nachislenie_v_analiz"); ?>
-Период 
+Период
 <select name=period_id>
-<?php foreach ($period->result() as $p):?>
-	<option value=<?php echo $p->id;?>><?php echo $p->name;?></option>
-<?php endforeach;?>
+    <?php foreach ($period->result() as $p): ?>
+        <option value=<?php echo $p->id; ?>><?php echo $p->name; ?></option>
+    <?php endforeach; ?>
 </select>
 <br>
 
 <br>
 <br>
-<input type=submit value='Экспортировать начисление' />
+<input type=submit value='Экспортировать начисление'/>
 </form>

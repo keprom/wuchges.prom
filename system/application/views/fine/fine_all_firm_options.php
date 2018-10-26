@@ -41,7 +41,7 @@
             <?php
             if ($option->is_fine == 't') {
                 $is_fine = 'Да';
-            } elseif($option->is_fine == 'f') {
+            } elseif ($option->is_fine == 'f') {
                 $is_fine = 'Нет';
             }
             ?>
@@ -50,7 +50,7 @@
             <?php
             if ($option->is_calendar == 1) {
                 $is_cal = 'Календарный';
-            } elseif($option->is_calendar == 0) {
+            } elseif ($option->is_calendar == 0) {
                 $is_cal = 'Рабочий';
             }
             ?>

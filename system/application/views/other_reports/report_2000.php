@@ -10,11 +10,11 @@
 </head>
 <body>
 <table class="border-table">
-<caption><?php echo $title;?></caption>
+    <caption><?php echo $title; ?></caption>
     <tr>
         <th rowspan="2">Дог</th>
         <th rowspan="2">Потребитель</th>
-		<th rowspan="2">бин</th>
+        <th rowspan="2">бин</th>
         <th colspan="2">Январь</th>
         <th colspan="2">Февраль</th>
         <th colspan="2">Март</th>
@@ -89,7 +89,7 @@
         <tr>
             <td><?php echo $r->dogovor; ?></td>
             <td><?php echo $r->name; ?></td>
-			<td><?php echo $r->bin; ?></td>
+            <td><?php echo $r->bin; ?></td>
             <td class="td-number"><?php echo prettify_number($r->m1_kvt); ?></td>
             <td class="td-number"><?php echo prettify_number($r->m1_tenge); ?></td>
             <td class="td-number"><?php echo prettify_number($r->m2_kvt); ?></td>

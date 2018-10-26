@@ -1,11 +1,11 @@
 <?php echo form_open("billing/dolgi"); ?>
 ТУРЭ
 <select name=ture_id>
-<?php foreach ($ture->result() as $t):?>
-	<option value=<?php echo $t->id;?>><?php echo $t->name;?></option>
-<?php endforeach;?>
+    <?php foreach ($ture->result() as $t): ?>
+        <option value=<?php echo $t->id; ?>><?php echo $t->name; ?></option>
+    <?php endforeach; ?>
 </select>
 <br>
 <br>
-<input type=submit value='Выдать отчет' />
+<input type=submit value='Выдать отчет'/>
 </form>

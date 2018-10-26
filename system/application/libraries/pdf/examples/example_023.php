@@ -62,10 +62,10 @@ $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 
 //set image scale factor
-$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO); 
+$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
 //set some language-dependent strings
-$pdf->setLanguageArray($l); 
+$pdf->setLanguageArray($l);
 
 // ---------------------------------------------------------
 

@@ -1,6 +1,6 @@
 <head>
 
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 
 </head>
 
@@ -13,24 +13,26 @@
 <br>
 <br>
 <br>
-<?php echo form_open('login/logining');?>
+<?php echo form_open('login/logining'); ?>
 <table align=center valign=bottom>
-<tr>
-<td>Логин</td>
-<td>
-<select name=login>
-<?php  foreach ($logins->result() as $l) {echo "<option value={$l->id} >{$l->name} {$l->profa}</option>";} ?>
-<select />
-</td>
-</tr>
-<tr>
-<td>Пароль</td>
-<td><input name=password type=password /></td>
-</tr>
-<tr>
-<td></td>
-<td><input  type=submit   value='Войти' /></td>
-</tr>
+    <tr>
+        <td>Логин</td>
+        <td>
+            <select name=login>
+                <?php foreach ($logins->result() as $l) {
+                    echo "<option value={$l->id} >{$l->name} {$l->profa}</option>";
+                } ?>
+                <select/>
+        </td>
+    </tr>
+    <tr>
+        <td>Пароль</td>
+        <td><input name=password type=password/></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><input type=submit value='Войти'/></td>
+    </tr>
 
 </table>
 </form>

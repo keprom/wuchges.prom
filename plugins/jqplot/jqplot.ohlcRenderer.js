@@ -1,44 +1,44 @@
 /**
-* Copyright (c) 2009 Chris Leonello
-* This software is licensed under the GPL version 2.0 and MIT licenses.
-*/
-(function($) {
+ * Copyright (c) 2009 Chris Leonello
+ * This software is licensed under the GPL version 2.0 and MIT licenses.
+ */
+(function ($) {
     /**
      * Class: $.jqplot.OHLCRenderer
      * jqPlot Plugin to draw Open Hi Low Close, Candlestick and Hi Low Close charts.
-     * 
-     * To use this plugin, include the renderer js file in 
+     *
+     * To use this plugin, include the renderer js file in
      * your source:
-     * 
+     *
      * > <script type="text/javascript" src="plugins/jqplot.ohlcRenderer.js" />
-     * 
+     *
      * You will most likely want to use a date axis renderer
      * for the x axis also, so include the date axis render js file also:
-     * 
+     *
      * > <script type="text/javascript" src="plugins/jqplot.dateAxisRenderer.js" />
-     * 
+     *
      * Then you set the renderer in the series options on your plot:
-     * 
+     *
      * > series: [{renderer:$.jqplot.OHLCRenderer}]
-     * 
+     *
      * For OHLC and candlestick charts, data should be specified
      * like so:
-     * 
+     *
      * > dat = [['07/06/2009',138.7,139.68,135.18,135.4], ['06/29/2009',143.46,144.66,139.79,140.02], ...]
-     * 
+     *
      * If the data array has only 4 values per point instead of 5,
      * the renderer will create a Hi Low Close chart instead.  In that case,
      * data should be supplied like:
-     * 
+     *
      * > dat = [['07/06/2009',139.68,135.18,135.4], ['06/29/2009',144.66,139.79,140.02], ...]
-     * 
+     *
      * To generate a candlestick chart instead of an OHLC chart,
      * set the "candlestick" option to true:
-     * 
+     *
      * > series: [{renderer:$.jqplot.OHLCRenderer, rendererOptions:{candleStick:true}}],
-     * 
+     *
      */
-    $.jqplot.OHLCRenderer = function(){
+    $.jqplot.OHLCRenderer = function () {
         // subclass line renderer to make use of some of it's methods.
         $.jqplot.LineRenderer.call(this);
         // prop: candleStick
@@ -83,12 +83,12 @@
         // This is determined automatically from the series data.
         this.hlc = false;
     };
-    
+
     $.jqplot.OHLCRenderer.prototype = new $.jqplot.LineRenderer();
     $.jqplot.OHLCRenderer.prototype.constructor = $.jqplot.OHLCRenderer;
-    
+
     // called with scope of series.
-    $.jqplot.OHLCRenderer.prototype.init = function(options) {
+    $.jqplot.OHLCRenderer.prototype.init = function (options) {
         // prop: lineWidth
         // Width of the hi-low line and open/close ticks.
         this.lineWidth = 1.5;
@@ -100,30 +100,30 @@
         if (d[0].length < 5) {
             this.renderer.hlc = true;
 
-            for (var j=0; j<d.length; j++) { 
+            for (var j = 0; j < d.length; j++) {
                 if (d[j][2] < db.min || db.min == null) {
-                	db.min = d[j][2];
+                    db.min = d[j][2];
                 }
                 if (d[j][1] > db.max || db.max == null) {
-                	db.max = d[j][1];
-                }             
+                    db.max = d[j][1];
+                }
             }
         }
         else {
-            for (var j=0; j<d.length; j++) { 
+            for (var j = 0; j < d.length; j++) {
                 if (d[j][3] < db.min || db.min == null) {
-                	db.min = d[j][3];
+                    db.min = d[j][3];
                 }
                 if (d[j][2] > db.max || db.max == null) {
-                	db.max = d[j][2];
-                }             
+                    db.max = d[j][2];
+                }
             }
         }
-        
+
     };
-    
+
     // called within scope of series.
-    $.jqplot.OHLCRenderer.prototype.draw = function(ctx, gd, options) {
+    $.jqplot.OHLCRenderer.prototype.draw = function (ctx, gd, options) {
         var d = this.data;
         var xmin = this._xaxis.min;
         var xmax = this._xaxis.max;
@@ -148,21 +148,21 @@
             // need to get widths based on number of points shown,
             // not on total number of points.  Use the results 
             // to speed up drawing in next step.
-            for (var i=0; i<d.length; i++) {
+            for (var i = 0; i < d.length; i++) {
                 if (d[i][0] < xmin) {
                     xminidx = i;
                 }
                 else if (d[i][0] < xmax) {
-                    xmaxidx = i+1;
+                    xmaxidx = i + 1;
                 }
             }
             if (r.candleStick && r.bodyWidth == null) {
-                r.bodyWidth = Math.min(20, ctx.canvas.width/(xmaxidx - xminidx)/2);
+                r.bodyWidth = Math.min(20, ctx.canvas.width / (xmaxidx - xminidx) / 2);
             }
             else if (!r.candleStick && r.tickLength == null) {
-                r.tickLength = Math.min(10, ctx.canvas.width/(xmaxidx - xminidx)/4);
+                r.tickLength = Math.min(10, ctx.canvas.width / (xmaxidx - xminidx) / 4);
             }
-            for (var i=xminidx; i<xmaxidx; i++) {
+            for (var i = xminidx; i < xmaxidx; i++) {
                 x = xp(d[i][0]);
                 if (r.hlc) {
                     open = null;
@@ -179,7 +179,7 @@
                 o = {};
                 if (r.candleStick && !r.hlc) {
                     w = r.bodyWidth;
-                    a = x - w/2;
+                    a = x - w / 2;
                     // draw candle
                     // determine if candle up or down
                     // up, remember grid coordinates increase downward
@@ -189,8 +189,8 @@
                             o.color = r.wickColor;
                         }
                         ops = $.extend(true, {}, opts, o);
-                        r.shapeRenderer.draw(ctx, [[x, hi], [x, close]], ops); 
-                        r.shapeRenderer.draw(ctx, [[x, open], [x, low]], ops); 
+                        r.shapeRenderer.draw(ctx, [[x, hi], [x, close]], ops);
+                        r.shapeRenderer.draw(ctx, [[x, open], [x, low]], ops);
                         o = {};
                         b = close;
                         h = open - close;
@@ -201,7 +201,7 @@
                         else {
                             o.strokeRect = true;
                             w = w - this.lineWidth;
-                            a = x - w/2;
+                            a = x - w / 2;
                         }
                         if (r.upBodyColor) {
                             o.color = r.upBodyColor;
@@ -209,16 +209,16 @@
                         points = [a, b, w, h];
                     }
                     // down
-                    else if (close >  open) {
+                    else if (close > open) {
                         // draw wick
                         if (r.wickColor) {
                             o.color = r.wickColor;
                         }
                         ops = $.extend(true, {}, opts, o);
-                        r.shapeRenderer.draw(ctx, [[x, hi], [x, open]], ops); 
-                        r.shapeRenderer.draw(ctx, [[x, close], [x, low]], ops); 
+                        r.shapeRenderer.draw(ctx, [[x, hi], [x, open]], ops);
+                        r.shapeRenderer.draw(ctx, [[x, close], [x, low]], ops);
                         o = {};
-                        
+
                         b = open;
                         h = close - open;
                         // if color specified, use it
@@ -228,7 +228,7 @@
                         else {
                             o.strokeRect = true;
                             w = w - this.lineWidth;
-                            a = x - w/2;
+                            a = x - w / 2;
                         }
                         if (r.downBodyColor) {
                             o.color = r.downBodyColor;
@@ -236,18 +236,18 @@
                         points = [a, b, w, h];
                     }
                     // even, open = close
-                    else  {
+                    else {
                         // draw wick
                         if (r.wickColor) {
                             o.color = r.wickColor;
                         }
                         ops = $.extend(true, {}, opts, o);
-                        r.shapeRenderer.draw(ctx, [[x, hi], [x, low]], ops); 
+                        r.shapeRenderer.draw(ctx, [[x, hi], [x, low]], ops);
                         o = {};
                         o.fillRect = false;
                         o.strokeRect = false;
-                        a = [x - w/2, open];
-                        b = [x + w/2, close];
+                        a = [x - w / 2, open];
+                        b = [x + w / 2, close];
                         w = null;
                         h = null;
                         points = [a, b];
@@ -262,46 +262,46 @@
                     }
                     // draw open tick
                     if (!r.hlc) {
-                        r.shapeRenderer.draw(ctx, [[x-r.tickLength, open], [x, open]], opts);    
+                        r.shapeRenderer.draw(ctx, [[x - r.tickLength, open], [x, open]], opts);
                     }
                     opts.color = prevColor;
                     // draw wick
                     if (r.wickColor) {
                         opts.color = r.wickColor;
                     }
-                    r.shapeRenderer.draw(ctx, [[x, hi], [x, low]], opts); 
-                    opts.color  = prevColor;
+                    r.shapeRenderer.draw(ctx, [[x, hi], [x, low]], opts);
+                    opts.color = prevColor;
                     // draw close tick
                     if (r.closeColor) {
                         opts.color = r.closeColor;
                     }
-                    r.shapeRenderer.draw(ctx, [[x, close], [x+r.tickLength, close]], opts); 
+                    r.shapeRenderer.draw(ctx, [[x, close], [x + r.tickLength, close]], opts);
                     opts.color = prevColor;
                 }
             }
         }
-        
+
         ctx.restore();
-    };  
-    
-    $.jqplot.OHLCRenderer.prototype.drawShadow = function(ctx, gd, options) {
+    };
+
+    $.jqplot.OHLCRenderer.prototype.drawShadow = function (ctx, gd, options) {
         // This is a no-op, shadows drawn with lines.
     };
-    
+
     // called with scope of plot.
-    $.jqplot.OHLCRenderer.checkOptions = function(target, data, options) {
+    $.jqplot.OHLCRenderer.checkOptions = function (target, data, options) {
         // provide some sensible highlighter options by default
         // These aren't good for hlc, only for ohlc or candlestick
         if (!options.highlighter) {
             options.highlighter = {
-                showMarker:false,
+                showMarker: false,
                 tooltipAxes: 'y',
                 yvalues: 4,
-                formatString:'<table class="jqplot-highlighter"><tr><td>date:</td><td>%s</td></tr><tr><td>open:</td><td>%s</td></tr><tr><td>hi:</td><td>%s</td></tr><tr><td>low:</td><td>%s</td></tr><tr><td>close:</td><td>%s</td></tr></table>'
+                formatString: '<table class="jqplot-highlighter"><tr><td>date:</td><td>%s</td></tr><tr><td>open:</td><td>%s</td></tr><tr><td>hi:</td><td>%s</td></tr><tr><td>low:</td><td>%s</td></tr><tr><td>close:</td><td>%s</td></tr></table>'
             };
         }
     };
-    
-	//$.jqplot.preInitHooks.push($.jqplot.OHLCRenderer.checkOptions);
-    
+
+    //$.jqplot.preInitHooks.push($.jqplot.OHLCRenderer.checkOptions);
+
 })(jQuery);    

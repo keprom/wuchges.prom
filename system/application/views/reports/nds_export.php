@@ -1,15 +1,17 @@
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 <?php
 function f_d($var)
 {
-	if ($var==0) return "&nbsp;"; else
-	return sprintf("%22.2f",$var);
+    if ($var == 0) return "&nbsp;"; else
+        return sprintf("%22.2f", $var);
 }
+
 function datetostring($date)
 {
-	$d=explode("-",$date); 
-	return $d['0'].'.'.$d['1'].'.'.$d['2'];
+    $d = explode("-", $date);
+    return $d['0'] . '.' . $d['1'] . '.' . $d['2'];
 }
+
 echo "<table>";
 echo "<tr>
 		<td>Название организации</bd>
@@ -25,13 +27,12 @@ echo "<tr>
 		<td>Сумма без ндс</td>
 		<td>НДС</td>
 		<td>НДС</td></tr>";
-		$j=1;
-foreach ($firms->result() as $n)
-{
-	echo "<tr>
+$j = 1;
+foreach ($firms->result() as $n) {
+    echo "<tr>
 		<td>{$n->firm_name}</bd>
 		<td>{$n->dogovor}</td>
-		<td>".($j++)."</td>
+		<td>" . ($j++) . "</td>
 		<td></td>
 		<td>'{$n->rnn}</td>
 		<td>{$n->bin}</td>

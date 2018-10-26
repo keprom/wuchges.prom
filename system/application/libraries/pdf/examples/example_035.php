@@ -34,7 +34,7 @@ require_once('../config/lang/eng.php');
 require_once('../tcpdf.php');
 
 // create new PDF document
-$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false); 
+$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
@@ -62,10 +62,10 @@ $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 
 //set image scale factor
-$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO); 
+$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
 //set some language-dependent strings
-$pdf->setLanguageArray($l); 
+$pdf->setLanguageArray($l);
 
 // ---------------------------------------------------------
 
@@ -81,28 +81,28 @@ $pdf->Cell(0, 12, 'Example 035', 1, 1, 'C');
 $pdf->Ln();
 
 $pdf->SetLineStyle(array('width' => 0.5, 'cap' => 'butt', 'join' => 'miter', 'dash' => 4, 'color' => array(255, 0, 0)));
-$pdf->SetFillColor(255,255,128);
-$pdf->SetTextColor(0,0,128);
+$pdf->SetFillColor(255, 255, 128);
+$pdf->SetTextColor(0, 0, 128);
 
-$text="DUMMY";
+$text = "DUMMY";
 
 $pdf->Cell(0, 0, $text, 1, 1, 'L', 1, 0);
 
 $pdf->Ln();
 
 $pdf->SetLineStyle(array('width' => 0.5, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 255)));
-$pdf->SetFillColor(255,255,0);
-$pdf->SetTextColor(0,0,255);
+$pdf->SetFillColor(255, 255, 0);
+$pdf->SetTextColor(0, 0, 255);
 $pdf->MultiCell(60, 4, $text, 1, 'C', 1, 0);
 
 $pdf->SetLineStyle(array('width' => 0.5, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(255, 255, 0)));
-$pdf->SetFillColor(0,0,255);
-$pdf->SetTextColor(255,255,0);
+$pdf->SetFillColor(0, 0, 255);
+$pdf->SetTextColor(255, 255, 0);
 $pdf->MultiCell(60, 4, $text, 'TB', 'C', 1, 0);
 
 $pdf->SetLineStyle(array('width' => 0.5, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(255, 0, 255)));
-$pdf->SetFillColor(0,255,0);
-$pdf->SetTextColor(255,0,255);
+$pdf->SetFillColor(0, 255, 0);
+$pdf->SetTextColor(255, 0, 255);
 $pdf->MultiCell(60, 4, $text, 1, 'C', 1, 1);
 
 // ---------------------------------------------------------

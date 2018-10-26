@@ -117,25 +117,30 @@
             </tr>
         <?php } ?>
     <?php }; ?>
-<!--    <tr>-->
-<!--        <td colspan="2"><b>ИТОГО</b></td>-->
-<!--        <td align="right"><b>--><?php //echo prettify_number($sum_t1_kvt); ?><!--</b></td>-->
-<!--        <td align="right"><b>--><?php //echo prettify_number($sum_t1_tenge); ?><!--</b></td>-->
-<!--        <td align="right">--><?php //echo($sum_t1_kvt > 0 ? prettify_number($sum_t1_tenge / $sum_t1_kvt) : '0.00') ?><!--</td>-->
-<!--        <td align="right"><b>--><?php //echo prettify_number($sum_t2_kvt); ?><!--</b></td>-->
-<!--        <td align="right"><b>--><?php //echo prettify_number($sum_t2_tenge); ?><!--</b></td>-->
-<!--        <td align="right">--><?php //echo($sum_t2_kvt > 0 ? prettify_number($sum_t2_tenge / $sum_t2_kvt) : '0.00') ?><!--</td>-->
-<!--        <td align="right"><b>--><?php //echo prettify_number($sum_t3_kvt); ?><!--</b></td>-->
-<!--        <td align="right"><b>--><?php //echo prettify_number($sum_t3_tenge); ?><!--</b></td>-->
-<!--        <td align="right">--><?php //echo($sum_t3_kvt > 0 ? prettify_number($sum_t3_tenge / $sum_t3_kvt) : '0.00') ?><!--</td>-->
-<!--        <td align="right"><b>--><?php //echo prettify_number($sum_diff_kvt); ?><!--</b></td>-->
-<!--        <td align="right"><b>--><?php //echo prettify_number($sum_diff_tenge); ?><!--</b></td>-->
-<!--        <td align="right">--><?php //echo($sum_diff_kvt > 0 ? prettify_number($sum_diff_tenge / $sum_diff_kvt) : '0.00') ?><!--</td>-->
-<!--        <td align="right"><b>--><?php //echo prettify_number($sum_sred_kvt); ?><!--</b></td>-->
-<!--        <td align="right"><b>--><?php //echo prettify_number($sum_sred_tenge); ?><!--</b></td>-->
-<!--        <td align="right">--><?php //echo($sum_sred_kvt > 0 ? prettify_number($sum_sred_tenge / $sum_sred_kvt) : '0.00') ?><!--</td>-->
-<!--        <td align="right"><b>--><?php //echo prettify_number($sum_raz); ?><!--</b></td>-->
-<!--    </tr>-->
+    <!--    <tr>-->
+    <!--        <td colspan="2"><b>ИТОГО</b></td>-->
+    <!--        <td align="right"><b>--><?php //echo prettify_number($sum_t1_kvt); ?><!--</b></td>-->
+    <!--        <td align="right"><b>--><?php //echo prettify_number($sum_t1_tenge); ?><!--</b></td>-->
+    <!--        <td align="right">-->
+    <?php //echo($sum_t1_kvt > 0 ? prettify_number($sum_t1_tenge / $sum_t1_kvt) : '0.00') ?><!--</td>-->
+    <!--        <td align="right"><b>--><?php //echo prettify_number($sum_t2_kvt); ?><!--</b></td>-->
+    <!--        <td align="right"><b>--><?php //echo prettify_number($sum_t2_tenge); ?><!--</b></td>-->
+    <!--        <td align="right">-->
+    <?php //echo($sum_t2_kvt > 0 ? prettify_number($sum_t2_tenge / $sum_t2_kvt) : '0.00') ?><!--</td>-->
+    <!--        <td align="right"><b>--><?php //echo prettify_number($sum_t3_kvt); ?><!--</b></td>-->
+    <!--        <td align="right"><b>--><?php //echo prettify_number($sum_t3_tenge); ?><!--</b></td>-->
+    <!--        <td align="right">-->
+    <?php //echo($sum_t3_kvt > 0 ? prettify_number($sum_t3_tenge / $sum_t3_kvt) : '0.00') ?><!--</td>-->
+    <!--        <td align="right"><b>--><?php //echo prettify_number($sum_diff_kvt); ?><!--</b></td>-->
+    <!--        <td align="right"><b>--><?php //echo prettify_number($sum_diff_tenge); ?><!--</b></td>-->
+    <!--        <td align="right">-->
+    <?php //echo($sum_diff_kvt > 0 ? prettify_number($sum_diff_tenge / $sum_diff_kvt) : '0.00') ?><!--</td>-->
+    <!--        <td align="right"><b>--><?php //echo prettify_number($sum_sred_kvt); ?><!--</b></td>-->
+    <!--        <td align="right"><b>--><?php //echo prettify_number($sum_sred_tenge); ?><!--</b></td>-->
+    <!--        <td align="right">-->
+    <?php //echo($sum_sred_kvt > 0 ? prettify_number($sum_sred_tenge / $sum_sred_kvt) : '0.00') ?><!--</td>-->
+    <!--        <td align="right"><b>--><?php //echo prettify_number($sum_raz); ?><!--</b></td>-->
+    <!--    </tr>-->
     </tbody>
 </table>
 </body>

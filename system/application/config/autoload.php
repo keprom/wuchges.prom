@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /*
 | -------------------------------------------------------------------
 | AUTO-LOADER
@@ -39,7 +39,7 @@
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database','calendar','session');
+$autoload['libraries'] = array('database', 'calendar', 'session');
 
 
 /*
@@ -51,7 +51,7 @@ $autoload['libraries'] = array('database','calendar','session');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url','form','prom_helper');
+$autoload['helper'] = array('url', 'form', 'prom_helper');
 
 
 /*
@@ -120,7 +120,6 @@ $autoload['model'] = array();
 |
 */
 // $autoload['core'] = array();
-
 
 
 /* End of file autoload.php */

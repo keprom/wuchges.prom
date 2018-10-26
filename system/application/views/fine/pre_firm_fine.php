@@ -10,7 +10,8 @@ if (empty($fine_firm) or ($fine_firm->is_fine != 't')) {
 <fieldset>
 
     <h4><?php echo '№' . $firm_info->dogovor . ' ' . $firm_info->name; ?></h4>
-    <p>Сальдо пени на начало месяца: <?php echo(empty($fine_saldo) ? '0.00' : prettify_number($fine_saldo->value)); ?></p>
+    <p>Сальдо пени на начало
+        месяца: <?php echo(empty($fine_saldo) ? '0.00' : prettify_number($fine_saldo->value)); ?></p>
 
     <?php if (!empty($fine_periods)): ?>
         <?php echo form_open('billing/fine_firm/' . $fine_firm->firm_id) ?>
@@ -51,8 +52,8 @@ if (empty($fine_firm) or ($fine_firm->is_fine != 't')) {
         <input type="text" name="border_day" value="<?php echo $fine_firm->border_day; ?>" style="width: 20px">
         <input type="hidden" name="period_id" value="<?php echo $fine_firm->period_id; ?>">
         <select name="is_calendar" id="">
-            <option <?php if($fine_firm->is_calendar == 0) echo 'selected'; ?> value="0">Рабочий</option>
-            <option <?php if($fine_firm->is_calendar == 1) echo 'selected'; ?> value="1">Календарный</option>
+            <option <?php if ($fine_firm->is_calendar == 0) echo 'selected'; ?> value="0">Рабочий</option>
+            <option <?php if ($fine_firm->is_calendar == 1) echo 'selected'; ?> value="1">Календарный</option>
         </select>
         <input type="hidden" name="firm_id" value="<?php echo $fine_firm->firm_id; ?>">
         <input type="submit" name="change_is_fine" value="Сохранить">
