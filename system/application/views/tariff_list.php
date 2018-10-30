@@ -11,7 +11,7 @@
 <br>
 <br>
 <?php echo form_open("billing/adding_tariff"); ?>
-Наименование тарифа <input name=name/><br/>
-Длинное название тарифа <input name=type_name/><br/>
-<input type=submit value='Добавить тарифф'/>
+Наименование тарифа <input name="name"><br/>
+Длинное название тарифа <input name="type_name"><br/>
+<input type="submit" value='Добавить тарифф'/>
 </form>

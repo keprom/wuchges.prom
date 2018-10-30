@@ -16,9 +16,9 @@ if ($this->session->flashdata('ischanged') == 'old_pass_error') {
 
 <h2>Смена пароля</h2>
 <?php echo form_open("billing/changing_password"); ?>
-Старый пароль <input name="old_pass" type=password/><br>
-Новый пароль <input name="new_pass_1" type=password/><br>
-Новый пароль повтор<input name="new_pass_2" type=password/><br>
+Старый пароль <input name="old_pass" type="password"><br>
+Новый пароль <input name="new_pass_1" type="password"><br>
+Новый пароль повтор<input name="new_pass_2" type="password"><br>
 <br/><br/>
-<input type=submit value="Смена пароля"/>
+<input type="submit" value="Смена пароля"/>
 </form>

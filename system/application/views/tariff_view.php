@@ -17,7 +17,7 @@
 <br>
 <br>
 <?php echo form_open("billing/adding_tariff_value/{$tariff->id}"); ?>
-Дата действия тарифа <input name=date/><br/>
-Значение тарифа  <input name=value/><br/>
-<input type=submit value='Добавить тарифф'/>
+Дата действия тарифа <input name="date"><br/>
+Значение тарифа  <input name="value"><br/>
+<input type="submit" value='Добавить тарифф'/>
 </form>

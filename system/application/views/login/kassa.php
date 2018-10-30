@@ -27,11 +27,11 @@
     </tr>
     <tr>
         <td>Пароль</td>
-        <td><input name=password type=password/></td>
+        <td><input name="password" type="password"></td>
     </tr>
     <tr>
         <td></td>
-        <td><input type=submit value='Войти'/></td>
+        <td><input type="submit" value='Войти'/></td>
     </tr>
 
 </table>
