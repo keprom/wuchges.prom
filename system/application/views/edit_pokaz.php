@@ -25,7 +25,7 @@ $j = 0;
         <?php if (($last_values_set_id != 0) and ($last_values_set_id != $p->values_set_id)): ?>
             <tr>
                 <td>
-                    <a name=id<?php echo $j; ?> />
+                    <a name="id<?php echo $j; ?>" />
                     <?php echo form_open("billing/adding_pokazanie2/" . $j, array('id' => 'form' . $j));
                     $j++ ?>
                     <b>Показание</b> <input id=<?php $p->values_set_id; ?> type="text" name="value" size="30"/><br>

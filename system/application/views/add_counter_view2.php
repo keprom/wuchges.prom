@@ -16,7 +16,7 @@ echo form_open("billing/adding_counter");
         <option value="<?php echo $row->id; ?>"><?php echo $row->name; ?></option>
     <?php endforeach; ?>
 </select>
-<input type='hidden' name='point_id' value= <?php echo $point_id; ?>/>
+<input type='hidden' name='point_id' value="<?php echo $point_id; ?>"/>
 
 <h5>Дата установки</h5>
 День <input type="text" name="day" value="" size="5"/>

@@ -15,7 +15,7 @@ if ($perm['enabled'] != 't') echo 'checked'; ?>> <br><br>
 <?php foreach ($perm as $key => $value): ?>
     <?php if (($key != 'id') and ($key != 'name') and ($key != 'login') and ($key != 'password') and ($key != 'enabled') and ($key != 'profa')): ?>
         <?php echo $key; ?> <input type=checkbox
-                                   name="<?php echo $key; ?>" <?php if ($value == 't') echo "checked"; ?> />
+                                   name="<?php echo $key; ?>" <?php if ($value == 't') echo "checked";?> />
         <br>
         <br>
     <?php endif; ?>
