@@ -10,7 +10,7 @@ function f_d2($var)
     return sprintf("%22.2f", $var);
 } ?>
 <b>Оплата за период по организации: <?php echo $firm->name; ?></b><br><br><br>
-<table border=1px width=100% style="border: black;" cellspacing=0px cellpadding=0px>
+<table border=1px style="border: black;" cellspacing=0px cellpadding=0px>
     <tr>
         <td><b>Оплата с ндс</b></td>
         <td><b>Ндс</b></td>
