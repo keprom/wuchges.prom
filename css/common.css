@@ -220,7 +220,7 @@ ul {
 
 #right_column {
     padding: 20px;
-    width: calc(100% - 254px);
+    width: 100% - 254px;
     margin-left: 254px;
 }
 

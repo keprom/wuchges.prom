@@ -1,5 +1,5 @@
-<b>Тарифы счетчика </b> <br/><br/><br/>
-<b>установленные тарифы на счетчике:</b><br/><br/>
+<?php echo anchor("billing/point/{$counter_info->point_id}","Назад к списку счетчиков"); ?><br><br>
+<b>Установленные тарифы на счетчике №<?php echo $counter_info->gos_nomer; ?>:</b><br/><br/>
 <?php echo anchor("billing/change_counter/" . $counter_id, "Редактировать счетчик"); ?><br><br><br>
 <table>
     <tr>
@@ -11,7 +11,6 @@
         }
     } else {
         echo "Установленых тарифов на счетчике нету";
-
     }
     ?>
 </table>

@@ -1,3 +1,4 @@
+<?php echo anchor("billing/firm/{$firm_id}","Назад к фирме"); ?><br><br>
 <?php echo form_open('billing/graph/' . $firm_id);
 
 function select($var, $name, $value)

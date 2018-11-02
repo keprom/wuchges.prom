@@ -322,8 +322,8 @@ class Billing extends Controller
 
             echo "<b>Банки с некорректными МФО:</b><br>";
             foreach ($ei_mfo as $key => $ib) {
-                echo $ib['dog'].":
-				".$key . ": " . $ib['mfo'] . ": " . $ib['len'] . "<br>";
+                echo $ib['dog'] . ":
+				" . $key . ": " . $ib['mfo'] . ": " . $ib['len'] . "<br>";
             }
 
         } else {
@@ -764,9 +764,15 @@ class Billing extends Controller
 
     function counter()
     {
-        $sql = "select values_set.id,tariff.type_name as type from industry.values_set,industry.tariff where tariff.id=values_set.tariff_id and  counter_id=" . $this->uri->segment(3);
+        $counter_id = $this->uri->segment(3);
+        $sql = "select values_set.id,tariff.type_name as type from industry.values_set,industry.tariff where tariff.id=values_set.tariff_id and counter_id=" . $this->uri->segment(3);
+
         $data['query'] = $this->db->query($sql);
-        $data['counter_id'] = $this->uri->segment(3);
+        $data['counter_id'] = $counter_id;
+
+        $this->db->where("id", $counter_id);
+        $data['counter_info'] = $this->db->get("industry.counter")->row();
+
         $this->left();
         $this->load->view("counter_view", $data);
         $this->load->view("right");
@@ -1791,6 +1797,7 @@ class Billing extends Controller
     function oborotka()
     {
         $this->db->where('firm_id', $this->uri->segment(3));
+        $data['firm_id'] = $this->uri->segment(3);
         $data['oborotka'] = $this->db->get('industry.oborotka')->row();
         $this->left();
         $this->load->view("oborotka", $data);
@@ -2670,6 +2677,7 @@ class Billing extends Controller
     {
         $this->left();
         $this->db->where('firm_id', $this->uri->segment(3));
+        $data['firm_id'] = $this->uri->segment(3);
         $data['numbers'] = $this->db->get('industry.schetfactura_numbers');
         $this->load->view('schetfactura_numbers', $data);
         $this->load->view('right');

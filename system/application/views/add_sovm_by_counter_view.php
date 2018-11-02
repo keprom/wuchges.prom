@@ -4,7 +4,7 @@
 <input type=hidden name="billing_point_id" value="<?php echo $point_id; ?>"/>
 <br/><br/>
 Родительская фирма
-<select name="parent_firm_id" style="width : 200">
+<select name="parent_firm_id" style="width : 300px">
     <?php foreach ($firms->result() as $row): ?>
         <option value="<?php echo $row->id; ?>"><?php echo $row->firm_info; ?></option>
     <?php endforeach; ?>

@@ -1,3 +1,4 @@
+<?php echo anchor("billing/firm/{$firm->id}","Назад к фирме"); ?><br><br>
 <?php
 function f_d($var)
 {

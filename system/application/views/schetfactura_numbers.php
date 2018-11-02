@@ -1,3 +1,4 @@
+<?php echo anchor("billing/firm/{$firm_id}","Назад к фирме"); ?><br>
 <h2> Список номеров счет фактур </h2>
 <table border=1>
     <tr>

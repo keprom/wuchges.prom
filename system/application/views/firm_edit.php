@@ -1,5 +1,6 @@
-<h3>#
-
+<?php $r = $r->row(); ?>
+<?php echo anchor("billing/firm/{$r->id}","Назад к фирме"); ?><br>
+<h3>
     <?php
     function select($var, $name, $value)
     {
@@ -11,7 +12,7 @@
         echo $string;
     }
 
-    $r = $r->row();
+
     echo form_open("billing/firm_edition/" . $r->id);
 
     echo "Номер договора <input name=dogovor value='" . $r->dogovor . "'> <br>

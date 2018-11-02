@@ -1,5 +1,6 @@
+<?php $r = $r->row();?>
+<?php echo anchor("billing/firm/{$r->id}","Назад к фирме"); ?><br><br>
 <?php
-$r = $r->row();
 echo form_open("billing/pre_schetfactura2");
 echo "<input type=hidden name=firm_id value=" . $r->id . " >";
 echo "<select name=period_id >";

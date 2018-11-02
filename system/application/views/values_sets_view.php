@@ -1,3 +1,4 @@
+<?php echo anchor("billing/counter/{$counter_data->id}","Назад к счетчику"); ?><br><br>
 <H4>Показания счетчика по тарифу <?php echo $sets_type; ?></H4>
 Коэффициент трансформации:
 <?php
