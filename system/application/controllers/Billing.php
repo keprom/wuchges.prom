@@ -645,6 +645,14 @@ class Billing extends Controller
             die("kvt ne dolzhny byt' men'she nulya");
         }
 
+        $this->db->where("tariff_id", $tariff_id);
+        $this->db->where("period_id = industry.current_period_id()");
+        $prev_values = $this->db->get("industry.tariff_current_value")->row();
+
+        if ($data <= $prev_values->tariff_data) {
+            die("date error");
+        }
+
         $this->db->insert("industry.tariff_period", array(
             'tariff_id' => $tariff_id,
             'data' => $data
@@ -657,6 +665,7 @@ class Billing extends Controller
             'kvt' => $kvt,
             'value' => $value
         ));
+
 
         redirect("billing/tariff/{$tariff_id}");
     }
@@ -685,6 +694,19 @@ class Billing extends Controller
         redirect("billing/tariff/{$tariff_id}");
     }
 
+    public function delete_tariff()
+    {
+        $tariff_id = $this->uri->segment(3);
+        $this->db->where("tariff_id", $tariff_id);
+        $tariff_period_nums = $this->db->get("industry.tariff_period")->num_rows;
+        if ($tariff_period_nums != 0) {
+            exit("Can't drop this tariff. It has values!");
+        }
+
+        $this->db->where("id", $tariff_id);
+        $this->db->delete("industry.tariff");
+        redirect("billing/tariff_list");
+    }
 
     function adding_banks()
     {
