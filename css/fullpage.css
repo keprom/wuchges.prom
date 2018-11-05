@@ -1,3 +1,26 @@
+.portrait {
+    width: 210mm;
+}
+
+.landscape {
+    width: 297mm;
+}
+
+@media print{
+    .portrait {
+        width: 201mm;
+    }
+
+    .landscape {
+        width: 297mm;
+    }
+
+    .gray-cube {
+        background-color: #c0c0c0;
+        -webkit-print-color-adjust: exact;
+    }
+}
+
 .border-table, .border-table td, .border-table tr, .border-table th {
     border: 1px solid black;
     border-collapse: collapse;
@@ -10,6 +33,30 @@
 
 .nowrap {
     white-space: nowrap;
+}
+
+.block {
+    width: 100%;
+}
+
+.border-bottom-cell, .border-bottom td {
+    border-bottom:1pt solid black;
+}
+
+.border-td {
+    border: 1px solid black;
+}
+
+.border-collapse {
+    border-collapse: collapse;
+}
+
+.gray-cube {
+    background-color: #c0c0c0;
+}
+
+.no-margin {
+    margin: 0px;
 }
 
 .striped-table tr:nth-child(even) {

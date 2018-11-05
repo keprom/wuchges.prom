@@ -606,8 +606,8 @@ class Billing extends Controller
 
     function tariff_list()
     {
-        $this->db->order_by("name");
-        $data['tariff_list'] = $this->db->get('industry.tariff');
+        $this->db->where("period_id = industry.current_period_id()");
+        $data['tariff_list'] = $this->db->get('industry.tariff_current_value')->result();
         $this->left();
         $this->load->view('tariff_list', $data);
         $this->load->view('right');
@@ -621,20 +621,91 @@ class Billing extends Controller
 
     function tariff()
     {
-        $this->db->where("id", $this->uri->segment(3));
-        $data['tariff'] = $this->db->get('industry.tariff')->row();
-        $this->db->where("tariff_id", $this->uri->segment(3));
-        $data['tariff_list'] = $this->db->get('industry.tariff_list');
+        $tariff_id = $this->uri->segment(3);
+        $this->db->where("tariff_id", $tariff_id);
+        $this->db->order_by("data");
+        $this->db->order_by("kvt");
+        $data['tariff_info'] = $this->db->get("industry.tariff_list")->result();
+
+        $this->db->where("id", $tariff_id);
+        $data['tariff'] = $this->db->get("industry.tariff")->row();
+
         $this->left();
         $this->load->view('tariff_view', $data);
         $this->load->view('right');
     }
 
-    function adding_tariff_value()
+    public function adding_tariff_value()
     {
-        $sql = "select industry.insert_tariff('{$_POST['date']}',{$_POST['value']},{$this->uri->segment(3)})";
-        $this->db->query($sql);
-        redirect("billing/tariff/{$this->uri->segment(3)}");
+        $tariff_id = $this->uri->segment(3);
+        $value = $_POST['value'];
+        $kvt = $_POST['kvt'];
+        $data = $_POST['data'];
+        if ($kvt == 0) {
+            die("kvt ne dolzhny byt' men'she nulya");
+        }
+
+        $this->db->where("tariff_id", $tariff_id);
+        $this->db->where("period_id = industry.current_period_id()");
+        $prev_values = $this->db->get("industry.tariff_current_value")->row();
+
+        if ($data <= $prev_values->tariff_data) {
+            die("date error");
+        }
+
+        $this->db->insert("industry.tariff_period", array(
+            'tariff_id' => $tariff_id,
+            'data' => $data
+        ));
+
+        $tariff_period_id = $this->db->insert_id();
+
+        $this->db->insert("industry.tariff_value", array(
+            'tariff_period_id' => $tariff_period_id,
+            'kvt' => $kvt,
+            'value' => $value
+        ));
+
+
+        redirect("billing/tariff/{$tariff_id}");
+    }
+
+    public function delete_tariff_value()
+    {
+        $tariff_value_id = $this->uri->segment(3);
+
+        $this->db->where("id", $tariff_value_id);
+        $tariff_period_id = $this->db->get("industry.tariff_value")->row()->tariff_period_id;
+
+        $this->db->where("id", $tariff_period_id);
+        $tariff_id = $this->db->get("industry.tariff_period")->row()->tariff_id;
+
+        $this->db->where("id", $tariff_value_id);
+        $this->db->delete("industry.tariff_value");
+
+        $this->db->where("tariff_period_id", $tariff_period_id);
+        $tariff_period_num = $this->db->get("industry.tariff_value")->num_rows;
+
+        if ($tariff_period_num == 0) {
+            $this->db->where("id", $tariff_period_id);
+            $this->db->delete("industry.tariff_period");
+        }
+
+        redirect("billing/tariff/{$tariff_id}");
+    }
+
+    public function delete_tariff()
+    {
+        $tariff_id = $this->uri->segment(3);
+        $this->db->where("tariff_id", $tariff_id);
+        $tariff_period_nums = $this->db->get("industry.tariff_period")->num_rows;
+        if ($tariff_period_nums != 0) {
+            exit("Can't drop this tariff. It has values!");
+        }
+
+        $this->db->where("id", $tariff_id);
+        $this->db->delete("industry.tariff");
+        redirect("billing/tariff_list");
     }
 
     function adding_banks()
@@ -764,9 +835,13 @@ class Billing extends Controller
 
     function counter()
     {
+<<<<<<< HEAD
         $counter_id = $this->uri->segment(3);
         $sql = "select values_set.id,tariff.type_name as type from industry.values_set,industry.tariff where tariff.id=values_set.tariff_id and counter_id=" . $this->uri->segment(3);
 
+=======
+        $sql = "select values_set.id,tariff.type_name as type from industry.values_set,industry.tariff where tariff.id=values_set.tariff_id and counter_id=" . $this->uri->segment(3);
+>>>>>>> tariff_list
         $data['query'] = $this->db->query($sql);
         $data['counter_id'] = $counter_id;
 
