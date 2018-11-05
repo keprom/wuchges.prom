@@ -835,13 +835,8 @@ class Billing extends Controller
 
     function counter()
     {
-<<<<<<< HEAD
         $counter_id = $this->uri->segment(3);
         $sql = "select values_set.id,tariff.type_name as type from industry.values_set,industry.tariff where tariff.id=values_set.tariff_id and counter_id=" . $this->uri->segment(3);
-
-=======
-        $sql = "select values_set.id,tariff.type_name as type from industry.values_set,industry.tariff where tariff.id=values_set.tariff_id and counter_id=" . $this->uri->segment(3);
->>>>>>> tariff_list
         $data['query'] = $this->db->query($sql);
         $data['counter_id'] = $counter_id;
 
