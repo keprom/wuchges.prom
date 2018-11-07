@@ -34,6 +34,27 @@ class Billing extends Controller
         set_time_limit(0);
         parent::Controller();
         $class_method = $this->uri->segment(1) . '/' . $this->uri->segment(2);
+        $user_id = $this->session->userdata('id');
+        date_default_timezone_set('Asia/Almaty');
+
+        $action = array(
+            "user_id" => $user_id,
+            "class_method" => $class_method,
+            "action_time" => date("Y-m-d H:i:s"),
+            "ip_address" => $_SERVER['REMOTE_ADDR']
+        );
+
+        $first_arg = $this->uri->segment(3);
+        $second_arg = $this->uri->segment(4);
+
+        if (!empty($first_arg)) {
+            $action['first_arg'] = $first_arg;
+            if (!empty($second_arg)) {
+                $action['second_arg'] = $second_arg;
+            }
+        }
+
+        $this->db->insert("industry.user_action", $action);
         if ($class_method == '/') redirect("billing");
         $is_login = $this->session->userdata('is_login');
 
@@ -2610,8 +2631,14 @@ class Billing extends Controller
 
     function pre_perehod()
     {
+        $last_ua = $this->db->get("industry.last_user_actions")->result();
+        $last_user_actions = array();
+        foreach ($last_ua as $lua) {
+            $last_user_actions[$lua->class_method] = $lua->max_action_time;
+        }
+        $data['last_user_actions'] = $last_user_actions;
         $this->left();
-        $this->load->view('pre_perehod');
+        $this->load->view('pre_perehod', $data);
         $this->load->view('right');
     }
 
