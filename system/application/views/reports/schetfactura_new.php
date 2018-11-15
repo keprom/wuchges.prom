@@ -200,12 +200,12 @@ function datetostring2($date)
         foreach ($s as $s2):
             ?>
             <tr align="center">
-                <TD width="60px"><?php echo $i++; ?></td>
-                <TD width="400px">электроэнергия за <?php echo datetostring2($schetfactura_date->date); ?> </td>
-                <TD width="100px">КВТ.Ч</td>
-                <TD width="200px"><?php echo f_d($s2->kvt); ?></td>
-                <TD width="100px"><?php echo f_d3($s2->tariff_value); ?></td>
-                <TD width="300px" align="right">
+                <td width="60px"><?php echo $i++; ?></td>
+                <td width="400px">электроэнергия за <?php echo datetostring2($schetfactura_date->date); ?> </td>
+                <td width="100px">КВТ.Ч</td>
+                <td width="200px"><?php echo f_d($s2->kvt); ?></td>
+                <td width="100px"><?php echo f_d3($s2->tariff_value); ?></td>
+                <td width="300px" align="right">
                     <?php
                     if ($i_t - $s2->tenge > 1) {
                         echo f_d($s2->tenge);
@@ -213,10 +213,10 @@ function datetostring2($date)
                         $i_t -= f_d($s2->tenge);
                     } else echo f_d($i_t);
                     ?></td>
-                <TD width="110px">
+                <td width="110px">
                     12%
                 </td>
-                <TD width="250px" align="right">
+                <td width="250px" align="right">
                     <?php
                     if ($i_nds - $s2->nds_value > 1) {
                         echo f_d($s2->nds_value);
@@ -226,7 +226,7 @@ function datetostring2($date)
                         echo f_d($i_nds);
                     ?>
                 </td>
-                <TD width="400px" align="right">
+                <td width="400px" align="right">
                     <?php
                     if ($i_itogo - $s2->with_nds > 1) {
                         echo f_d($s2->with_nds);
@@ -236,8 +236,8 @@ function datetostring2($date)
                         echo f_d($i_itogo);
                     ?>
                 </td>
-                <TD width="110px">0</td>
-                <TD width="100px">0</TD>
+                <td width="110px">0</td>
+                <td width="100px">0</td>
             </tr>
         <?php endforeach; ?>
 
