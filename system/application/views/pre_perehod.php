@@ -13,7 +13,7 @@ $links = array(
     "billing/pre_nachislenie_v_analiz" => array("title" => "Экспортировать начисление в анализ по ТП"),
     "billing/nachislenie_v_buhgalteriu" => array("title" => "Перенос начисления в бухгалтерию"),
     "billing/perenos_rek1" => array("title" => "Перенос реквизитов"),
-    "billing/perenos_nach" => array("title" => "Перенос начисления по уровням"),
+    "billing/perenos_nach" => array("title" => "Перенос начисления в 1С 8.3"),
     "billing/tariff_list" => array("title" => "Тарифы"),
     "billing/perenos_saldo" => array("title" => "Сальдо за месяц"),
     "billing/perenos_oplata" => array("title" => "Перенос оплаты за месяц")
