@@ -2367,7 +2367,6 @@ class Billing extends Controller
             $sql = "select count(*)  from industry.payment_number where number='" . $_POST['payment_number'] . "'";
             $count = $this->db->query($sql)->row()->count;
             $sql = "select id from industry.payment_number where number='" . $_POST['payment_number'] . "'";
-            echo $sql;
             $query = $this->db->query($sql);
             if ($count > 0) {
 

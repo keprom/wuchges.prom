@@ -10,6 +10,7 @@
     <title>Работа с оплатой</title>
 </head>
 <body>
+<?php if ($this->session->flashdata('added') == 'true') echo "<h3>Оплата добавлена по орг-ции:" . $this->session->flashdata('firm_name') . "</h3>"; ?>
 <?php echo form_open('billing/adding_oplata'); ?>
 <table>
     <tr>
@@ -99,7 +100,7 @@
         </tr>
     <?php endforeach; ?>
     </tbody>
-</table>y>
+</table>
 </table>
 
 </body>
