@@ -661,7 +661,7 @@ class Billing extends Controller
         $this->db->where("period_id = industry.current_period_id()");
         $prev_values = $this->db->get("industry.tariff_current_value")->row();
 
-        if ($data <= $prev_values->tariff_data) {
+        if ($data < $prev_values->tariff_data) {
             die("date error");
         }
 
