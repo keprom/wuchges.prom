@@ -420,6 +420,16 @@ class Billing extends Controller
             dbase_close($db);
             $db2 = dbase_open("c:/oplata/schet.dbf", 2);
             foreach ($nach->result() as $n) {
+                if ($n->beznds == 0) {
+                    $array_error[] = "Счет-фактуры, выписанная договору #{$n->dog}, нулевая";
+                    continue;
+                }
+
+                if (strlen(trim($n->nomer)) == 0){
+                    $array_error[] = "Номер счет-фактуры, выписанной договору #{$n->dog}, некорректный: {$n->nomer}";
+                    continue;
+                }
+
                 dbase_add_record($db2,
                     array(
                         $n->dog,
