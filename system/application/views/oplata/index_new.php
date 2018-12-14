@@ -10,6 +10,12 @@
     <title>Работа с оплатой</title>
 </head>
 <body>
+<?php
+function f_d($var)
+{
+    if ($var == 0) return "&nbsp;"; else
+        return sprintf("%22.2f", $var);
+} ?>
 <?php if ($this->session->flashdata('added') == 'true') echo "<h3>Оплата добавлена по орг-ции:" . $this->session->flashdata('firm_name') . "</h3>"; ?>
 <?php echo form_open('billing/adding_oplata'); ?>
 <table>
@@ -92,9 +98,9 @@
             <td><?php echo $o->dogovor; ?></td>
             <td><?php echo $o->data; ?></td>
             <td><?php echo $o->number; ?></td>
-            <td class="td-number"><?php echo prettify_number($o->value * 1.12); ?></td>
-            <td class="td-number"><?php echo prettify_number($o->value * 0.12); ?></td>
-            <td class="td-number"><?php echo prettify_number($o->value); ?></td>
+            <td class="td-number"><?php echo f_d($o->value * 1.12); ?></td>
+            <td class="td-number"><?php echo f_d($o->value * 0.12); ?></td>
+            <td class="td-number"><?php echo f_d($o->value); ?></td>
             <td align="right"><?php echo $o->document_number; ?></td>
             <td><a href="<?php echo site_url("billing/oplata_delete/{$o->id}"); ?>">X</a></td>
         </tr>
