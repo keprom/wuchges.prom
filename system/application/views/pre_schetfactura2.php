@@ -8,6 +8,7 @@ echo "Выдать как Акт выполненых работ <input type=che
 echo "Выдать новой счетфактурой <input type=checkbox name=new_schetfactura  ><br>";
 echo "<input type=hidden name=period_id value=" . $period_id . " >";
 ?>
+	Последний номер счета-фактуры <input type="text" disabled value="<?php echo $max_schet_number; ?>"><br><br>
     Другая дата выдачи: <input name=data_schet value=''> <br><br>
     Условия оплаты по договору: <input name=edit1 value='<?php echo $firm->edit1; ?>'> <br><br>
     Пункт назначения поставляемых товаров (работ, услуг): <input name=edit2 value='<?php echo $firm->edit2; ?>'> <br>
