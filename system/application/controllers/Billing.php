@@ -3994,6 +3994,13 @@ class Billing extends Controller
             echo "DBF file is busy!";
         }
     }
+	
+    public function kontragent_rek()
+    {
+        $data['report'] = $this->db->get("shell.kontragent_rek")->result();
+        $this->load->view("other_reports/kontragent_rek", $data);
+    }	
+	
 }
 
 ?>
