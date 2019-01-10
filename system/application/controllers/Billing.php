@@ -1593,7 +1593,7 @@ class Billing extends Controller
 
         $data['r'] = $this->db->get('industry.schetfactura_date');
 
-        $sql = "select distinct tariff_value from industry.schetfactura where  period_id=" . $_POST['period_id'];
+        $sql="select distinct value as tariff_value from industry.tariff_value order by value";
         $data['tariffs'] = $this->db->query($sql);
 
         $this->db->where('id', $_POST['firm_id']);
