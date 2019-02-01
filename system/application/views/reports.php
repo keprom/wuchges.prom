@@ -45,3 +45,4 @@ echo anchor("billing/pre_analiz_mnogourovneviy", "Анализ по многоу
 <li><a href="<?php echo site_url('billing/pre_firm_all_counter'); ?>"><?php echo 'Все счетчики'; ?></a></li>
 <li><a href="<?php echo site_url('billing/gos_poverka'); ?>"><?php echo 'Гос. поверка'; ?></a></li>
 <li><a href="<?php echo site_url('billing/kontragent_rek'); ?>"><?php echo 'Список контрагентов с реквизитами'; ?></a></li>
+<li><a href="<?php echo site_url('billing/sf_verification'); ?>"><?php echo 'Номера счетов-фактур с начислениями'; ?></a></li>
