@@ -4007,8 +4007,23 @@ class Billing extends Controller
 
     public function sf_verification()
     {
+        switch ($_POST['kvt_type']){
+            case '-1':
+                $this->db->where('kvt < 0');
+                break;
+            case '1':
+                $this->db->where('kvt > 0');
+                break;
+        }
         $data['report'] = $this->db->get("shell.sf_verification")->result();
         $this->load->view("other_reports/sf_verification", $data);
+    }
+
+    public function pre_sf_verification()
+    {
+        $this->left();
+        $this->load->view("other_reports/pre_sf_verification");
+        $this->load->view("right");
     }
 
     public function migration()
