@@ -2249,7 +2249,6 @@ class Billing extends Controller
 
     function oplata_po_schetam()
     {
-
         switch($_POST['payment_id']){
             case '-1':
                 break;
@@ -2263,12 +2262,8 @@ class Billing extends Controller
             $this->db->where('period_id', $_POST['period_id']);
             $data['oplata'] = $this->db->get('industry.oplata_po_schetam');
         } else {
-            $this->db->where("data>=",$_POST['start']);
-            $this->db->where("data<=",$_POST['end']);
+            $this->db->where("data BETWEEN '{$_POST['start']}' AND '{$_POST['end']}'");
             $data['oplata'] = $this->db->get("industry.oplata_po_schetam");
-//            $sql = "select * from industry.oplata_po_schetam where data between '{$_POST['start']}' and
-//								'{$_POST['end']}'";
-//            $data['oplata'] = $this->db->query($sql);
         }
         $this->load->view("oplata/po_schetam", $data);
     }
