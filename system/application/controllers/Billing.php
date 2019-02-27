@@ -2249,15 +2249,27 @@ class Billing extends Controller
 
     function oplata_po_schetam()
     {
+
+        switch($_POST['payment_id']){
+            case '-1':
+                break;
+            default:
+                $this->db->where('id', $_POST['payment_id']);
+                $payment_number = $this->db->get("industry.payment_number")->row()->number;
+                $this->db->where('number', $payment_number);
+                break;
+        }
         if (empty($_POST['start'])) {
             $this->db->where('period_id', $_POST['period_id']);
             $data['oplata'] = $this->db->get('industry.oplata_po_schetam');
         } else {
-            $sql = "select * from industry.oplata_po_schetam where data between '{$_POST['start']}' and 
-								'{$_POST['end']}'";
-            $data['oplata'] = $this->db->query($sql);
+            $this->db->where("data>=",$_POST['start']);
+            $this->db->where("data<=",$_POST['end']);
+            $data['oplata'] = $this->db->get("industry.oplata_po_schetam");
+//            $sql = "select * from industry.oplata_po_schetam where data between '{$_POST['start']}' and
+//								'{$_POST['end']}'";
+//            $data['oplata'] = $this->db->query($sql);
         }
-
         $this->load->view("oplata/po_schetam", $data);
     }
 
@@ -2305,6 +2317,8 @@ class Billing extends Controller
 
     function pre_oplata_po_schetam()
     {
+        $this->db->order_by("number");
+        $data['payment_number'] = $this->db->get("industry.payment_number")->result();
         $data['period'] = $this->db->get("industry.selected_period");
         $this->left();
         $this->load->view("pre_oplata_po_schetam", $data);
