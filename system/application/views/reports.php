@@ -46,3 +46,4 @@ echo anchor("billing/pre_analiz_mnogourovneviy", "Анализ по многоу
 <li><a href="<?php echo site_url('billing/gos_poverka'); ?>"><?php echo 'Гос. поверка'; ?></a></li>
 <li><a href="<?php echo site_url('billing/kontragent_rek'); ?>"><?php echo 'Список контрагентов с реквизитами'; ?></a></li>
 <li><a href="<?php echo site_url('billing/pre_sf_verification'); ?>"><?php echo 'Номера счетов-фактур с начислениями'; ?></a></li>
+<li><a href="<?php echo site_url('billing/pre_ne_potrebil'); ?>"><?php echo 'Список договоров с нулевым начислением'; ?></a></li>

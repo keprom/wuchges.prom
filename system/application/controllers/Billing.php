@@ -3796,6 +3796,36 @@ class Billing extends Controller
         }
     }
 
+    function pre_ne_potrebil()
+    {
+        $data['period'] = $this->db->get("industry.selected_period")->result();
+        $this->left();
+        $this->load->view("other_reports/ne_potrebil/pre", $data);
+        $this->load->view("right");
+    }
+
+    function ne_potrebil()
+    {
+        $debt_type_id = $_POST['debt_type_id'];
+        switch ($debt_type_id){
+            case -1:
+                break;
+            case 0:
+                $this->db->where("debet_value > 0");
+                break;
+            case 1:
+                $this->db->where("kredit_value > 0");
+                break;
+            default:
+                break;
+        }
+        $this->db->where("period_id", $_POST['period_id']);
+        $data['firms'] = $this->db->get("industry.ne_potrebil");
+        $this->db->where("id", $_POST['period_id']);
+        $data['period'] = $this->db->get("industry.period")->row();
+        $this->load->view("other_reports/ne_potrebil/report", $data);
+    }
+
     #ins_check
     public function add_ins_check()
     {
