@@ -9,6 +9,16 @@
     <link rel="stylesheet" href="/plugins/multiselect/css/bootstrap-multiselect.css">
     <link rel="stylesheet" href="/css/fullpage.css">
     <link rel="shortcut icon" type="image/png" href="/img/favicon.png"/>
+    <style>
+        .back-to-top {
+            cursor: pointer;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display:none;
+        }
+
+    </style>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -98,7 +108,7 @@ function f_d($var)
             <div class="panel panel-default">
                 <div class="panel-heading">Установить период</div>
                 <div class="panel-body">
-                    <?php echo form_open('billing/change_oplata_period', "class='form-inline'"); ?>
+                    <?php echo form_open('billing/change_oplata_period', "class='form-inline', method='post'"); ?>
                     <fieldset>
                         <div class="form-group">
                             <input type="date"
@@ -176,10 +186,35 @@ function f_d($var)
     </div>
 </div>
 
-
+<a id="back-to-top"
+   href="#"
+   class="btn btn-primary btn-lg back-to-top"
+   role="button"
+   title="Click to return on the top page"
+   data-toggle="tooltip"
+   data-placement="left">
+    <span class="glyphicon glyphicon-chevron-up"></span>
+</a>
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script src="/plugins/bootstrap/js/bootstrap.js"></script>
 <script src="/plugins/multiselect/js/bootstrap-multiselect.js"></script>
 <script src="/js/common.js"></script>
+<script>
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("myBtn").style.display = "block";
+        } else {
+            document.getElementById("myBtn").style.display = "none";
+        }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+</script>
 </body>
 </html>
