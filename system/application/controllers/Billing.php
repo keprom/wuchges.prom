@@ -86,7 +86,7 @@ class Billing extends Controller
         $data['poisk'] = $this->session->userdata('poisk');
         if ($this->session->userdata('poisk') == NULL) $data['poisk'] = '1';
         $this->load->view("left", $data);
-		$this->load->view("messages");		
+        $this->load->view("messages");
     }
 
     function phpinfo()
@@ -336,7 +336,7 @@ class Billing extends Controller
             echo "<br>";
             echo "<b>Банки с некорректными МФО:</b><br>";
             foreach ($ei_mfo as $key => $ib) {
-                echo $key . ": " . $ib['bank'] . ": " . $ib['mfo'] . ":" . $ib['len']."<br>";
+                echo $key . ": " . $ib['bank'] . ": " . $ib['mfo'] . ":" . $ib['len'] . "<br>";
             }
         } else {
             echo "DBF file is busy!";
@@ -420,7 +420,7 @@ class Billing extends Controller
             dbase_close($db);
             $db2 = dbase_open("c:/oplata/schet.dbf", 2);
             foreach ($nach->result() as $n) {
-                if ($n->dog1 == 0){
+                if ($n->dog1 == 0) {
                     $array_error[] = "У договора #{$n->dog} некорректный номер 1C: {$n->dog1}";
                     continue;
                 }
@@ -430,7 +430,7 @@ class Billing extends Controller
                     continue;
                 }
 
-                if (strlen(trim($n->nomer)) == 0){
+                if (strlen(trim($n->nomer)) == 0) {
                     $array_error[] = "Номер счет-фактуры, выписанной договору #{$n->dog}, некорректный: {$n->nomer}";
                     continue;
                 }
@@ -598,9 +598,9 @@ class Billing extends Controller
 
     function adding_tp()
     {
-        if (trim($_POST['name'])!=""){
-            $_POST['ture_id'] = isset($_POST['ture_id'])? $_POST['ture_id']: 0;
-            $this->db->insert('industry.tp',$_POST);
+        if (trim($_POST['name']) != "") {
+            $_POST['ture_id'] = isset($_POST['ture_id']) ? $_POST['ture_id'] : 0;
+            $this->db->insert('industry.tp', $_POST);
         }
         redirect("billing/tp");
     }
@@ -1264,8 +1264,8 @@ class Billing extends Controller
         $data['r'] = $this->db->get('industry.schetfactura_date');
         $this->db->where('id', $_POST['firm_id']);
         $data['firm'] = $this->db->get('industry.firm')->row();
-		
-        $this->db->where('period_id',$_POST['period_id']);
+
+        $this->db->where('period_id', $_POST['period_id']);
         $data['max_schet_number'] = $this->db->get("shell.max_schet_number")->row()->schet_number;
 
         $this->left();
@@ -1593,7 +1593,7 @@ class Billing extends Controller
 
         $data['r'] = $this->db->get('industry.schetfactura_date');
 
-        $sql=
+        $sql =
             "select distinct(tariff_value) 
             from industry.tariff_current_value 
             where tariff_id = 1 
@@ -2229,10 +2229,8 @@ class Billing extends Controller
     function oplata()
     {
         if ($this->session->userdata('begin_data') == "") {
-            $sql = "select period.* from industry.period 
-					left join industry.sprav on sprav.name='current_period'
-						where period.id=sprav.value";
-            $period = $this->db->query($sql)->row();
+            $this->db->where("id", $this->get_cpi());
+            $period = $this->db->get("industry.period")->row();
             $this->session->set_userdata(array('begin_data' => $period->begin_date, 'end_data' => $period->end_date));
         }
 
@@ -2242,14 +2240,25 @@ class Billing extends Controller
         $data['fine_oplata'] = $this->db->get("industry.fine_oplata_edit")->result();
         /*END FINE*/
 
-        $sql = "select * from industry.oplata_edit where data between '" . $this->session->userdata('begin_data') . "' and '" . $this->session->userdata('end_data') . "'";
-        $data['oplata'] = $this->db->query($sql);
+        $begin_data = $this->session->userdata('begin_data');
+        $end_data = $this->session->userdata('end_data');
+        $this->db->where("data between '{$begin_data}' and '{$end_data}'");
+        $this->db->order_by("data", "DESC");
+        $data['oplata'] = $this->db->get("industry.oplata_edit");
+
+        $this->db->order_by("number");
+        $data['payment_number'] = $this->db->get("industry.payment_number")->result();
+
+        $this->db->order_by("dogovor");
+//        $this->db->where("firm_closed = FALSE");
+        $data['firm'] = $this->db->get("industry.firm")->result();
+
         $this->load->view('oplata/index_new', $data);
     }
 
     function oplata_po_schetam()
     {
-        switch($_POST['payment_id']){
+        switch ($_POST['payment_id']) {
             case '-1':
                 break;
             default:
@@ -2272,26 +2281,27 @@ class Billing extends Controller
     {
         $bill_id = $this->uri->segment(3);
         $period_id = $this->get_cpi($bill_id);
-        $this->db->where("bill_id",$bill_id);
-        $this->db->where("period_id",$period_id);
+        $this->db->where("bill_id", $bill_id);
+        $this->db->where("period_id", $period_id);
         $n = $this->db->get("industry.nadbavka_info");
-        if($n->num_rows > 0){
+        if ($n->num_rows > 0) {
             die("V dannyi period na tochke ucheta nahodyatsya nadbavki!");
         }
-        $this->db->where("bill_id",$bill_id);
-        $this->db->where("period_id",$period_id);
+        $this->db->where("bill_id", $bill_id);
+        $this->db->where("period_id", $period_id);
         $sbp = $this->db->get("industry.sovm_billing_point");
-        if($sbp->num_rows > 0){
+        if ($sbp->num_rows > 0) {
             die("Na tochke ucheta imeutsya sovmesntye uchety!");
         }
-        $this->db->where("bill_id",$bill_id);
+        $this->db->where("bill_id", $bill_id);
         $unfc = $this->db->get("industry.unfinished_counter");
-        if($unfc->num_rows > 0){
+        if ($unfc->num_rows > 0) {
             die("Na tochke ucheta imeutsya nesnyatye schetchiki!");
         }
     }
 
-    private function get_cpi(){
+    private function get_cpi()
+    {
         return $this->db->query("select * from industry.current_period_id()")->row()->current_period_id;
     }
 
@@ -2379,45 +2389,50 @@ class Billing extends Controller
 
     function adding_oplata()
     {
-        $sql = "select count(*) from industry.firm where dogovor=" . $_POST['dogovor'];
-        $count = $this->db->query($sql)->row()->count;
+//        echo "<pre>";
+//        print_r($_POST);
+//        echo "</pre>";
+//        die();
+        $firm_id = $this->input->post("firm_id");
+        $payment_number_id = $this->input->post("payment_number_id");
 
-        $sql = "select id,name from industry.firm where dogovor=" . $_POST['dogovor'];
-        $query = $this->db->query($sql);
-        if ($count > 0) {
+        $this->db->where("id", $firm_id);
+        $pre_firm = $this->db->get("industry.firm");
+        $has_firm = $pre_firm->num_rows();
 
-            /*fine*/
-            $current_nds = $this->db->query("select * from industry.current_nds()")->row()->current_nds;
-            /*fine*/
+        if ($has_firm == 0) {
+            echo "Договора с id {$firm_id} не существует! Обратитесь к программисту!";
+            die();
+        }
 
-            $firm_id = $this->db->query($sql)->row()->id;
-            $firm_name = $this->db->query($sql)->row()->name;
-            $data['firm_id'] = $firm_id;
-            $data['nds'] = $_POST['nds'];
-            $data['is_prochee'] = "false";
-            $data['is_akt'] = $_POST['is_akt'];
+        $firm = $pre_firm->row();
+        $current_nds = $this->db->query("select * from industry.current_nds()")->row()->current_nds;
 
-            $sql = "select count(*)  from industry.payment_number where number='" . $_POST['payment_number'] . "'";
-            $count = $this->db->query($sql)->row()->count;
-            $sql = "select id from industry.payment_number where number='" . $_POST['payment_number'] . "'";
-            $query = $this->db->query($sql);
-            if ($count > 0) {
+        $data['firm_id'] = $firm->id;
+        $data['nds'] = $current_nds;
+        $data['is_prochee'] = "false";
+        $data['is_akt'] = $_POST['is_akt'];
 
-                $data['payment_number_id'] = $query->row()->id;
-                $this->session->set_userdata(
-                    array('data' => $_POST['data'],
-                        'number' => $_POST['payment_number']
-                    )
-                );
-                $data['value'] = $_POST['value'] / (($current_nds + 100) / 100);
-                $data['data'] = $_POST['data'];
-                $data['document_number'] = $_POST['document_number'];
+        $this->db->where("id", $payment_number_id);
+        $pre_pn = $this->db->get("industry.payment_number");
+        $has_pn = $pre_pn->num_rows();
+        if ($has_pn > 0) {
+            $pn = $pre_pn->row();
+            $data['payment_number_id'] = $pn->id;
+            $this->session->set_userdata(
+                array('data' => $_POST['data'],
+                    'number' => $pn->number
+                )
+            );
+            $data['value'] = $_POST['value'] / (($current_nds + 100) / 100);
+            $data['data'] = $_POST['data'];
+            $data['document_number'] = $_POST['document_number'];
 
-                if ($data['is_akt'] == false) {
-                    /*FINE*/
-                    #деление оплаты начислений и пени
-                    $firm_fine_saldo = $this->db->query(
-                        "select 
+            if ($data['is_akt'] == false) {
+                /*FINE*/
+                #деление оплаты начислений и пени
+                $firm_fine_saldo = $this->db->query(
+                    "select 
 					  (fine_saldo.value - coalesce(sum(fine_oplata.value*((100+fine_oplata.nds)/100)),0)) as itogo_saldo
 					from industry.fine_saldo
 					join industry.period on period.id = fine_saldo.period_id
@@ -2425,46 +2440,46 @@ class Billing extends Controller
 					  and fine_oplata.data >= period.begin_date and fine_oplata.data <= period.end_date
 					where fine_saldo.firm_id={$firm_id} and fine_saldo.period_id = industry.current_period_id()
 					group by fine_saldo.value"
-                    )->row()->itogo_saldo;
+                )->row()->itogo_saldo;
 
+                $day_opl = 0;
+                $day_fine_opl = 0;
+
+                $sum_bez_nds = $data['value'];
+                $sum_with_nds = $data['value'] * (($current_nds + 100) / 100);
+
+                $opl_dif = $firm_fine_saldo - $sum_with_nds;
+
+                if ($opl_dif >= 0) {
+                    $day_fine_opl = $sum_bez_nds;
+                    echo "<br>opl_dif: $opl_dif > 0";
                     $day_opl = 0;
-                    $day_fine_opl = 0;
-
-                    $sum_bez_nds = $data['value'];
-                    $sum_with_nds = $data['value'] * (($current_nds + 100) / 100);
-
-                    $opl_dif = $firm_fine_saldo - $sum_with_nds;
-
-                    if ($opl_dif >= 0) {
-                        $day_fine_opl = $sum_bez_nds;
-                        echo "<br>opl_dif: $opl_dif > 0";
-                        $day_opl = 0;
-                    } else {
-                        $day_fine_opl = $firm_fine_saldo / (($current_nds + 100) / 100);
-                        $day_opl = ($opl_dif * (-1)) / (($current_nds + 100) / 100);
-                        echo "<br>opl_dif: $opl_dif < 0";
-                        $opl_dif = 0;
-                    }
-
-                    if (((int)$day_opl) > 0) {
-                        $data['value'] = $day_opl;
-                        $this->db->insert('industry.oplata', $data);
-                    }
-
-                    if (((int)$day_fine_opl) > 0) {
-                        $data['value'] = $day_fine_opl;
-                        $this->db->insert('industry.fine_oplata', $data);
-                    }
-                    /*END OF FINE*/
                 } else {
+                    $day_fine_opl = $firm_fine_saldo / (($current_nds + 100) / 100);
+                    $day_opl = ($opl_dif * (-1)) / (($current_nds + 100) / 100);
+                    echo "<br>opl_dif: $opl_dif < 0";
+                    $opl_dif = 0;
+                }
+
+                if (((int)$day_opl) > 0) {
+                    $data['value'] = $day_opl;
                     $this->db->insert('industry.oplata', $data);
                 }
 
-                $this->session->set_flashdata('added', 'true');
-                $this->session->set_flashdata('firm_name', $firm_name);
-
+                if (((int)$day_fine_opl) > 0) {
+                    $data['value'] = $day_fine_opl;
+                    $this->db->insert('industry.fine_oplata', $data);
+                }
+                /*END OF FINE*/
+            } else {
+                $this->db->insert('industry.oplata', $data);
             }
+
+            $this->session->set_flashdata('added', 'true');
+            $this->session->set_flashdata('firm_name', $firm->dogovor.": ".$firm->name);
+
         }
+
         redirect('billing/oplata');
     }
 
@@ -2696,8 +2711,8 @@ class Billing extends Controller
     function perehod()
     {
         $this->db->query("select industry.goto_next_period_fine();");
-		$array = array(1 => 'Переход в следующий месяц прошел успешно!');
-		$this->session->set_flashdata('success', $array);		
+        $array = array(1 => 'Переход в следующий месяц прошел успешно!');
+        $this->session->set_flashdata('success', $array);
         redirect("billing");
     }
 
@@ -3807,7 +3822,7 @@ class Billing extends Controller
     function ne_potrebil()
     {
         $debt_type_id = $_POST['debt_type_id'];
-        switch ($debt_type_id){
+        switch ($debt_type_id) {
             case -1:
                 break;
             case 0:
@@ -3904,16 +3919,17 @@ class Billing extends Controller
         $this->db->delete("industry.transformator");
         redirect("billing/point/" . $bill_id);
     }
+
     #transformator
 
-    	public function export_rekvizit_schet()
+    public function export_rekvizit_schet()
     {
         /*проверка наличия дублирующихся номеров СФ*/
         $this->db->where('period_id', $this->get_cpi());
         $dup_schet_number = $this->db->get("shell.dup_schet_number");
-        if ($dup_schet_number->num_rows>0) {
+        if ($dup_schet_number->num_rows > 0) {
             $array_error = array(1 => 'Имеются повторяющиеся номера счетов-фактур!');
-            foreach ($dup_schet_number->result() as $d){
+            foreach ($dup_schet_number->result() as $d) {
                 $array_error[] = "№{$d->dogovor}: номер счета-фактуры: {$d->schet_number}";
             }
             $this->session->set_flashdata('error', $array_error);
@@ -3938,7 +3954,7 @@ class Billing extends Controller
             $db = dbase_open("c:/oplata/rschet.dbf", 2);
             foreach ($nach->result() as $n) {
                 //проверка номера 1С
-                if ($n->dog1 == 0){
+                if ($n->dog1 == 0) {
                     $array_error[] = "№{$n->dog}: некорректный номер 1C - {$n->dog1}";
                     continue;
                 }
@@ -3975,14 +3991,14 @@ class Billing extends Controller
                 }
 
                 //проверка расчетного счета
-                if(($n->mfo <> '') && (mb_strlen($n->schet, 'UTF-8') <> 20)){
+                if (($n->mfo <> '') && (mb_strlen($n->schet, 'UTF-8') <> 20)) {
                     $array_error[] = "№{$n->dog}: некорректный расчетный счет - {$n->schet}";
                     continue;
                 }
-								
-                if(($n->mfo == '') && (mb_strlen($n->schet, 'UTF-8') <> 20)){
+
+                if (($n->mfo == '') && (mb_strlen($n->schet, 'UTF-8') <> 20)) {
                     $n->schet = '';
-                }	
+                }
 
                 //проверка начисления
                 if ($n->beznds == 0) {
@@ -3991,7 +4007,7 @@ class Billing extends Controller
                 }
 
                 //проверка номера СФ
-                if (strlen(trim($n->nomer)) == 0){
+                if (strlen(trim($n->nomer)) == 0) {
                     $array_error[] = "№{$n->dog}: некорректный номер счет-фактуры - {$n->nomer}";
                     continue;
                 }
@@ -4024,11 +4040,11 @@ class Billing extends Controller
             $current_period = $this->db->get("industry.period")->row();
             $current_period = explode("-", $current_period->end_date);
             $month = $current_period[1];
-            
+
             if (!copy("c:/oplata/rschet.dbf", "c:/oplata/wges{$month}.dbf")) {
                 $array_error[] = "Не удалось скопировать файл rschet.dbf";
             }
-            
+
             $array_success[] = 'Перенос прошел успешно!';
             $this->session->set_flashdata('success', $array_success);
             $this->session->set_flashdata('error', $array_error);
@@ -4037,7 +4053,7 @@ class Billing extends Controller
             echo "DBF file is busy!";
         }
     }
-	
+
     public function kontragent_rek()
     {
         $data['report'] = $this->db->get("shell.kontragent_rek")->result();
@@ -4046,7 +4062,7 @@ class Billing extends Controller
 
     public function sf_verification()
     {
-        switch ($_POST['kvt_type']){
+        switch ($_POST['kvt_type']) {
             case '-1':
                 $this->db->where('kvt < 0');
                 break;
@@ -4068,7 +4084,7 @@ class Billing extends Controller
     public function migration()
     {
         $data['report'] = $this->db->get("shell.migration")->result();
-        $this->export_to_excel("other_reports/migration", $data,"щучинские_гэс");
+        $this->export_to_excel("other_reports/migration", $data, "щучинские_гэс");
 //        $this->load->view("other_reports/migration", $data);
     }
 }
