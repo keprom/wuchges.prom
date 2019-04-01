@@ -79,7 +79,7 @@ class Billing extends Controller
             }
         }
 
-        $this->output->enable_profiler(TRUE);
+//        $this->output->enable_profiler(TRUE);
     }
 
     function left()
