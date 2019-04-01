@@ -78,6 +78,8 @@ class Billing extends Controller
                 die('<h1>Доступ запрещен</h1>');
             }
         }
+
+        $this->output->enable_profiler(TRUE);
     }
 
     function left()
@@ -3821,15 +3823,15 @@ class Billing extends Controller
 
     function ne_potrebil()
     {
-        $debt_type_id = $_POST['debt_type_id'];
-        switch ($debt_type_id) {
+        $data['debt_type_id']  = $_POST['debt_type_id'];
+        switch ($data['debt_type_id']) {
             case -1:
                 break;
             case 0:
-                $this->db->where("debet_value > 0");
+                $this->db->where("debet_value::numeric(24,2) > 0");
                 break;
             case 1:
-                $this->db->where("kredit_value > 0");
+                $this->db->where("kredit_value::numeric(24,2) >= 0");
                 break;
             default:
                 break;
