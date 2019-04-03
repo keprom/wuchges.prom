@@ -15,7 +15,7 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            display:none;
+            display: none;
         }
 
     </style>
@@ -44,7 +44,7 @@ function f_d($var)
             <div class="panel panel-default">
                 <div class="panel-heading">Добавление оплаты</div>
                 <div class="panel-body">
-                    <?php echo form_open('billing/adding_oplata','method="post"'); ?>
+                    <?php echo form_open('billing/adding_oplata', 'method="post"'); ?>
                     <!-- дата и номер счета-->
                     <div class="form-group">
                         <div class="row">
@@ -85,7 +85,8 @@ function f_d($var)
                             </div>
                             <div class="col-sm-4">
                                 <label for="document_number" class="control-label">Номер документа</label>
-                                <input type="text" class="form-control" name="document_number" id="document_number" required>
+                                <input type="text" class="form-control" name="document_number" id="document_number"
+                                       required>
                             </div>
                             <div class="col-sm-4">
                                 <label for="is_akt">Пометить как акт</label>
@@ -105,26 +106,59 @@ function f_d($var)
         </div>
 
         <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">Установить период</div>
-                <div class="panel-body">
-                    <?php echo form_open('billing/change_oplata_period', "class='form-inline', method='post'"); ?>
-                    <fieldset>
-                        <div class="form-group">
-                            <input type="date"
-                                   class="form-control"
-                                   name="begin_data"
-                                   value="<?php echo $this->session->userdata('begin_data'); ?>">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Установить период</div>
+                        <div class="panel-body">
+                            <?php echo form_open('billing/change_oplata_period', "class='form-inline', method='post'"); ?>
+                            <fieldset>
+                                <div class="form-group">
+                                    <input type="date"
+                                           class="form-control"
+                                           name="begin_data"
+                                           value="<?php echo $this->session->userdata('begin_data'); ?>">
+                                </div>
+                                <div class="form-group">
+                                    <input type="date"
+                                           class="form-control"
+                                           name="end_date"
+                                           value="<?php echo $this->session->userdata('end_data'); ?>">
+                                </div>
+                                <button type="submit" class="btn btn-default">Подтвердить</button>
+                            </fieldset>
+                            <?php echo form_close(); ?>
                         </div>
-                        <div class="form-group">
-                            <input type="date"
-                                   class="form-control"
-                                   name="end_date"
-                                   value="<?php echo $this->session->userdata('end_data'); ?>">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Фильтр по номеру счета</div>
+                        <div class="panel-body">
+                            <?php echo form_open('billing/change_oplata_period', "class='form-inline', method='post'"); ?>
+                            <fieldset>
+                                <div class="form-group">
+                                    <select name="payment_number_id" id="payment_number_id" class="form-control">
+                                        <option value="0">Все</option>
+
+                                        <?php foreach ($pay_number as $pn): ?>
+                                            <?php if(($payment_number_id) and ($payment_number_id == $pn->id)){
+                                                $selected = 'selected';
+                                            } else {
+                                                $selected = '';
+                                            }
+                                            ?>
+                                                <option <?php echo $selected; ?> value="<?php echo $pn->id; ?>"><?php echo $pn->number; ?></option>
+                                            <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-default">Подтвердить</button>
+                            </fieldset>
+                            <?php echo form_close(); ?>
                         </div>
-                        <button type="submit" class="btn btn-default">Подтвердить</button>
-                    </fieldset>
-                    <?php echo form_close(); ?>
+                    </div>
                 </div>
             </div>
         </div>
@@ -200,7 +234,9 @@ function f_d($var)
 <script src="/plugins/multiselect/js/bootstrap-multiselect.js"></script>
 <script src="/js/common.js"></script>
 <script>
-    window.onscroll = function() {scrollFunction()};
+    window.onscroll = function () {
+        scrollFunction()
+    };
 
     function scrollFunction() {
         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {

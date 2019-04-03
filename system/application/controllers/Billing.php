@@ -2242,9 +2242,17 @@ class Billing extends Controller
         $data['fine_oplata'] = $this->db->get("industry.fine_oplata_edit")->result();
         /*END FINE*/
 
+        $this->db->order_by("number");
+        $data['pay_number'] = $this->db->get("industry.payment_number")->result();
+
+        $data['payment_number_id'] = $this->session->userdata('payment_number_id');
+
         $begin_data = $this->session->userdata('begin_data');
         $end_data = $this->session->userdata('end_data');
         $this->db->where("data between '{$begin_data}' and '{$end_data}'");
+        if($data['payment_number_id']){
+            $this->db->where("payment_number_id", $data['payment_number_id']);
+        }
         $this->db->order_by("data", "DESC");
         $data['oplata'] = $this->db->get("industry.oplata_edit");
 
