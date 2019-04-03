@@ -2310,13 +2310,18 @@ class Billing extends Controller
     function oplata_svod()
     {
         $this->db->where('period_id', $_POST['period_id']);
+        if($_POST['payment_number_id'] !== "0"){
+            $this->db->where('payment_number_id', $_POST['payment_number_id']);
+        }
         $data['oplata'] = $this->db->get("industry.oplata_svod");
         $this->load->view('oplata/svod', $data);
     }
 
     function pre_oplata_svod()
     {
-        $data['period'] = $this->db->get("industry.selected_period");
+        $data['period'] = $this->db->get("industry.selected_period")->result();
+        $this->db->order_by("number");
+        $data['pay_number'] = $this->db->get("industry.payment_number")->result();
         $this->left();
         $this->load->view("pre_oplata_svod", $data);
         $this->load->view("right");
